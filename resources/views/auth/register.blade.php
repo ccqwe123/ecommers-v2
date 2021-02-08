@@ -42,17 +42,29 @@
                                 @enderror
                                 <fieldset class="wrap-title">
                                     <h3 class="form-title">Create an account</h3>
-                                    <h4 class="form-subtitle">Personal infomation</h4>
+                                </fieldset>                                 
+                                <fieldset class="wrap-input">
+                                    <div class="social-signin clearfix" style="margin-bottom:10px!important">
+                                        <a href="{{ url('/login/facebook') }}" target="_self" class="button facebook btn-block text-center"><i class="fa fa-facebook"></i> &nbsp;&nbsp;&nbsp;CONNECT WITH FACEBOOK</a>
+                                    </div>
                                 </fieldset>                                 
                                 <fieldset class="wrap-input">
                                     <label for="name">{{ __('Full Name') }}</label>
+                                    @if(!empty(session('user')->name))
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name" autofocus>
+                                    @else
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    @endif
                                 </fieldset>
                                 <fieldset class="wrap-input">
                                     <label for="email">{{ __('E-Mail Address') }}</label>
+                                    @if(!empty(session('user')->email))
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ session('user')->email }}" required autocomplete="email">
+                                    @else
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                    @endif
                                 </fieldset>
-                                <fieldset class="wrap-input item-width-in-half left-item ">
+                                <fieldset class="wrap-input item-width-in-half left-item" style="margin-bottom:20px;">
                                     <label for="password">{{ __('Password') }}</label>
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                                 </fieldset>
@@ -60,7 +72,7 @@
                                     <label for="password-confirm">{{ __('Confirm Password') }}</label>
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                                 </fieldset>
-                                 <button type="submit" class="btn btn-primary">
+                                 <button type="submit" class="btn btn-primary btn-block">
                                     {{ __('Submit') }}
                                 </button>
                             </form>

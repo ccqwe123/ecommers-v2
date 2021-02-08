@@ -1,5 +1,6 @@
 @extends('layouts.frontend')
 @section('title', 'Login')
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700">
 @section('body')
 <main id="main" class="main-site left-sidebar">
 
@@ -19,10 +20,18 @@
                              <form method="POST" action="{{ route('login') }}">
                                  @csrf
                                 <fieldset class="wrap-title">
+                                    @if (session('user_invalid'))
+                                        <div class="alert slide-info slide-1">
+                                          <span class="closebtn f-title" onclick="this.parentElement.style.display='none';">&times;</span>
+                                          {{ session('user_invalid') }}
+                                        </div>
+                                    @endif
+                                </fieldset>
+                                <fieldset class="wrap-title">
                                     <h3 class="form-title">Log in to your account</h3>                                      
                                 </fieldset>
                                 <fieldset class="wrap-input">
-                                    <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                    <label for="email">{{ __('E-Mail Address') }}</label>
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -31,7 +40,7 @@
                                     @enderror
                                 </fieldset>
                                 <fieldset class="wrap-input">
-                                    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                    <label for="password">{{ __('Password') }}</label>
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                     @error('password')
@@ -55,9 +64,13 @@
                                     @endif
                                 </fieldset>
                                 <!-- <input type="submit" class="btn btn-submit" value="Login" name="submit"> -->
-                                <button type="submit" class="btn btn-submit">
+                                <button type="submit" class="btn btn-submit btn-block">
                                     {{ __('Login') }}
                                 </button>
+                                <div class="or-seperator"><b>or</b></div>
+                                <div class="social-signin clearfix">
+                                    <a href="{{ url('/login/facebook') }}" target="_self" class="button facebook btn-block text-center"><i class="fa fa-facebook"></i> &nbsp;&nbsp;&nbsp;CONTINUE WITH FACEBOOK</a>
+                                </div>
                             </form>
                         </div>                                              
                     </div>

@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
 				'email'	=>	'demo@demo.com',
 				'usertype'	=>	'admin',
 				'password'	=>	Hash::make('admindemo'),
+                'provider' =>   NULL,
+                'checker' =>   '1',
+                'provider_id' =>    NULL,
 				]);
 
     }
