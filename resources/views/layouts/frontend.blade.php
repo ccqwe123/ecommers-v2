@@ -48,7 +48,7 @@
 												<a title="My Account" href="#">{{ Auth::user()->name }}<i class="fa fa-angle-down" aria-hidden="true"></i></a>
 												<ul class="submenu curency" >
 													<li class="menu-item" >
-														<a href="#"><i class="fa fa-tachometer" aria-hidden="true"></i> &nbsp;&nbsp;Admin Panel</a>
+														<a href="/dashboard"><i class="fa fa-tachometer" aria-hidden="true"></i> &nbsp;&nbsp;Admin Panel</a>
 													</li>
 													<li class="menu-item" >
 														<a  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp;&nbsp;&nbsp;&nbsp;{{ __('Logout') }} </a>

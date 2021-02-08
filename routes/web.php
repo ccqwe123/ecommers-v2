@@ -21,7 +21,7 @@ Route::post('confirm/password', 'Auth\LoginController@updateSocialAccountWithPas
 
 Auth::routes();
 
-// Route::group(['middleware' => ['auth','admin']], function() {
-
-// });
+Route::group(['middleware' => ['auth','admin']], function() {
+	Route::get('/dashboard', 'DashboardController@index');	
+});
 // Route::get('/home', 'HomeController@index')->name('home');
