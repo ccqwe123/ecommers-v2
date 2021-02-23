@@ -8716,8 +8716,8 @@ body,
 
 .navbar-badge {
   position: absolute;
-  top: 2px;
-  right: -3px;
+  top: 9px;
+  right: 5px;
   font-size: .6rem;
   font-weight: 300;
   padding: 2px 4px;
@@ -30141,5 +30141,201 @@ readers do not read off random characters that represent icons */
 .fab {
   font-family: "Font Awesome 5 Brands";
   font-weight: 400;
+}
+
+.router-link-exact-active,
+.router-link-active {
+  background-color: #ffeded3b;
+  color: #fff !important;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.dataTables_filter,
+.dataTables_paginate {
+  float: right !important;
+}
+
+.uploader {
+  width: 100%;
+  background: #2196F3;
+  color: #fff;
+  padding: 40px 15px;
+  text-align: center;
+  border-radius: 10px;
+  border: 3px dashed #fff;
+  font-size: 20px;
+  position: relative;
+}
+
+.uploader.dragging {
+  background: #fff;
+  color: #2196F3;
+  border: 3px dashed #2196F3;
+}
+
+.uploader.dragging .file-input label {
+  background: #2196F3;
+  color: #fff;
+}
+
+.uploader i {
+  font-size: 85px;
+}
+
+.uploader .file-input {
+  width: 200px;
+  margin: auto;
+  height: 68px;
+  position: relative;
+}
+
+.uploader .file-input label,
+.uploader .file-input input {
+  background: #fff;
+  color: #2196F3;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 7px;
+  cursor: pointer;
+}
+
+.uploader .file-input input {
+  opacity: 0;
+  z-index: -2;
+}
+
+.uploader .images-preview {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.uploader .images-preview .img-wrapper {
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  height: 150px;
+  justify-content: space-between;
+  background: #fff;
+  box-shadow: 5px 5px 20px #3e3737;
+}
+
+.uploader .images-preview .img-wrapper img {
+  max-height: 105px;
+}
+
+.uploader .images-preview .details {
+  font-size: 12px;
+  background: #fff;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: self-start;
+  padding: 3px 6px;
+}
+
+.uploader .images-preview .details .name {
+  overflow: hidden;
+  height: 18px;
+}
+
+.uploader .upload-control {
+  position: absolute;
+  width: 100%;
+  background: #fff;
+  top: 0;
+  left: 0;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  padding: 10px;
+  padding-bottom: 4px;
+  text-align: right;
+}
+
+.uploader .upload-control button,
+.uploader .upload-control label {
+  background: #2196F3;
+  border: 2px solid #03A9F4;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.uploader .upload-control label {
+  padding: 2px 5px;
+  margin-right: 10px;
+}
+
+@-webkit-keyframes modal-b-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0.5;
+  }
+}
+
+@keyframes modal-b-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0.5;
+  }
+}
+
+@-webkit-keyframes modal-fade {
+  from {
+    top: -100px;
+    opacity: 0;
+  }
+
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes modal-fade {
+  from {
+    top: -100px;
+    opacity: 0;
+  }
+
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+.modal-backdrop {
+  opacity: 0.3;
+  -webkit-animation: ease-in-out 0.3s modal-b-fade;
+          animation: ease-in-out 0.3s modal-b-fade;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal {
+  top: -100px;
+  -webkit-animation: ease-in-out 0.3s modal-fade;
+          animation: ease-in-out 0.3s modal-fade;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal.show {
+  top: 0;
+}
+
+body.modal-open {
+  position: unset !important;
 }
 
