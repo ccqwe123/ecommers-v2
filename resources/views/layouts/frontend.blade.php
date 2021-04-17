@@ -5,19 +5,21 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>@yield('title')</title>	
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/others/favicon.ico') }}">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic,900,900italic&amp;subset=latin,latin-ext" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Open%20Sans:300,400,400italic,600,600italic,700,700italic&amp;subset=latin,latin-ext" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/animate.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/font-awesome.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/owl.carousel.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/flexslider.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/chosen.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/color-01.css') }}">
 </head>
-<body class="home-page home-01 ">
-
+<body class="home-page home-01 shopping-cart loading-data no-scroll">
+	@yield('preloader')
 	<!-- mobile menu -->
     <div class="mercado-clone-wrap">
         <div class="mercado-panels-actions-wrap">
@@ -27,7 +29,7 @@
     </div>
 
 	<!--header-->
-	<header id="header" class="header header-style-1">
+	<header class="header header-style-1">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="topbar-menu-area">
@@ -69,7 +71,7 @@
 														<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> &nbsp;&nbsp;&nbsp;My Orders</a>
 													</li>
 													<li class="menu-item" >
-														<a href="#"><i class="fa fa-user-o" aria-hidden="true"></i> &nbsp;&nbsp;&nbsp;&nbsp;Manage My Account</a>
+														<a href="{{ route('user.myaccount') }}"><i class="fa fa-user-o" aria-hidden="true"></i> &nbsp;&nbsp;&nbsp;&nbsp;Manage My Account</a>
 													</li>
 													<li class="menu-item" >
 														<a  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp;&nbsp;&nbsp;&nbsp;{{ __('Logout') }} </a>
@@ -94,7 +96,7 @@
 					<div class="mid-section main-info-area">
 
 						<div class="wrap-logo-top left-section">
-							<a href="/" class="link-to-home"><img src="assets/images/logo-top-1.png" alt="mercado"></a>
+							<a href="/" class="link-to-home"><img src="{{ asset('images/others/logo-top-1.png') }}" alt="mercado"></a>
 						</div>
 
 						<div class="wrap-search center-section">
@@ -140,10 +142,10 @@
 								</a>
 							</div>
 							<div class="wrap-icon-section minicart">
-								<a href="#" class="link-direction">
+								<a href="/cart" class="link-direction">
 									<i class="fa fa-shopping-basket" aria-hidden="true"></i>
 									<div class="left-info">
-										<span class="index">4 items</span>
+										<span class="index">{{ Cart::instance('default')->count() }} items</span>
 										<span class="title">CART</span>
 									</div>
 								</a>
@@ -345,7 +347,9 @@
 								<h3 class="item-header">We Using Safe Payments:</h3>
 								<div class="item-content">
 									<div class="wrap-list-item wrap-gallery">
-										<img src="assets/images/payment.png" style="max-width: 260px;">
+										<!-- <img src="/images/others/gcash-logo.png" style="max-width: 260px;"> -->
+										<img src="{{ asset('images/others/gcash-logo.png') }}" class="payment-footer">
+										<img src="{{ asset('images/others/WU-Logo.png') }}" class="payment-footer" style="width: 140px;">
 									</div>
 								</div>
 							</div>
@@ -367,21 +371,6 @@
 								</div>
 							</div>
 						</div>
-
-						<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
-							<div class="wrap-footer-item">
-								<h3 class="item-header">Dowload App</h3>
-								<div class="item-content">
-									<div class="wrap-list-item apps-list">
-										<ul>
-											<li><a href="#" class="link-to-item" title="our application on apple store"><figure><img src="assets/images/brands/apple-store.png" alt="apple store" width="128" height="36"></figure></a></li>
-											<li><a href="#" class="link-to-item" title="our application on google play store"><figure><img src="assets/images/brands/google-play-store.png" alt="google play store" width="128" height="36"></figure></a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-
 					</div>
 				</div>
 
@@ -460,12 +449,20 @@
 	
 	<script src="{{ asset('assets/js/jquery-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
 	<script src="{{ asset('assets/js/jquery-ui-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
-	<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+	<!-- Fix Violation Error on console log -->
+	<script type="text/javascript" src="{{ asset('assets/js/index.umd.js') }}"></script>
+	<!-- End -->
+	<!-- <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script> -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script src="{{ asset('assets/js/jquery.flexslider.js') }}"></script>
 	<script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script>
 	<script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
 	<script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
 	<script src="{{ asset('assets/js/jquery.sticky.js') }}"></script>
 	<script src="{{ asset('assets/js/functions.js') }}"></script>
+	<script src="{{ asset('assets/js/loading.js') }}"></script>
+	@yield('script')
+	<!-- <script src="{{ asset('/js/app.js') }}"></script> -->
+
 </body>
 </html>

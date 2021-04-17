@@ -12,9 +12,16 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function categoryList()
+    {
+        // log::info("$cat");
+        return Category::get();
+        // return $cat;
+    }
+
     public function index()
     {
-        return Category::get();
+        return Category::latest()->paginate(9);
     }
 
     /**
@@ -25,7 +32,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'category_name'=>'required|min:2',
+        ]);
+        return Category::create([
+            'category_name' => $request['category_name'],
+            'slug' => $request['category_name']
+        ]); 
     }
 
     /**
@@ -48,7 +61,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'category_name'=>'required|min:2',
+        ]);
+        $category = Category::findOrFail($id);
+        $category->update($request->all());
     }
 
     /**
@@ -59,6 +76,11 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+         $category = Category::findOrFail($id);
+        // delete the user
+
+        $category->delete();
+
+        return ['message' => 'Product Deleted'];
     }
 }

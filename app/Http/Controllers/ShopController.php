@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Product;
+use App\Category;
+use App\Setting;
+use App\Banner;
+use Log;
+use Carbon\Carbon;
 class ShopController extends Controller
 {
     /**
@@ -13,7 +18,14 @@ class ShopController extends Controller
      */
     public function index()
     {
-        return view('frontpage.index');
+        $product = Product::select(['products.*','images.image_name'])->leftjoin('images','images.product_id','=','products.id')->groupBy('products.product_name')->take(10)->inRandomOrder()->get();
+        $setting = Setting::whereNotNull('onsale')->first();
+        $onsale = Product::where('sale','1')->inRandomOrder()->take(10)->get();
+        $banner = Banner::get();
+        // inRandomOrder()
+        $for_cat = Category::with('productByCategory')->take(20)->get();
+
+        return view('frontpage.index',compact('product','for_cat','setting','onsale','banner'));
     }
 
     /**
@@ -21,9 +33,26 @@ class ShopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function shoplist()
+    public function shoplist(Request $request)
     {
-        return view('frontpage.shop');
+        $categories = Category::get();
+        $new_products = Product::whereYear('created_at', Carbon::now()->year)
+                        ->whereMonth('created_at', Carbon::now()->month)
+                        ->take(5)
+                        ->get();
+        if(!empty($request))
+        {
+            if($request[0]=='price')
+            {
+                $products = Product::select(['products.*','images.image_name'])->leftjoin('images','images.product_id','=','products.id')->groupBy('products.product_name')->orderBy('regular_price','ASC')->inRandomOrder()->paginate(12);
+                return view('frontpage.shop',compact('products','categories','new_products'));
+            }
+        }else{
+            log::info("empty");
+        }
+            $products = Product::select(['products.*','images.image_name'])->leftjoin('images','images.product_id','=','products.id')->groupBy('products.product_name')->inRandomOrder()->paginate(12);
+        
+        return view('frontpage.shop',compact('products','categories','new_products'));
     }
 
     public function create()

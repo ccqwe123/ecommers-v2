@@ -55,7 +55,31 @@ class LoginController extends Controller
         }
 
     }
+    public function showLoginForm()
+    {
+        session()->put('previousUrl', url()->previous());
 
+        return view('auth.login');
+    }
+    public function logout(Request $request)
+    {
+        $cart = collect(session()->get('cart'));
+
+        $destination = \Auth::logout();
+
+        if (!config('cart.destroy_on_logout')) {
+            $cart->each(function ($rows, $identifier) {
+                session()->put('cart.' . $identifier, $rows);
+            });
+        }
+
+        return redirect()->to($destination);
+    }
+
+    public function redirectTo()
+    {
+        return str_replace(url('/'), '', session()->get('previousUrl', '/'));
+    }
     public function handleProviderCallback(Request $request)
     {
         if (!$request->has('code') || $request->has('denied')) {
@@ -113,7 +137,6 @@ class LoginController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-        log::info($request);
         $user = User::findOrFail($request->user_id);
         $user->password = HASH::make($request->password);
         $user->checker = '1';

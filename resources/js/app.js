@@ -7,6 +7,8 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import moment from 'moment';
+window.moment = moment;
 import { Form, HasError, AlertError } from 'vform'
 window.Form = Form;
 Vue.component(HasError.name, HasError)
@@ -17,6 +19,7 @@ Vue.use(VueRouter)
 import Vue2Editor from "vue2-editor";
 Vue.use(Vue2Editor);
 Vue.component('pagination', require('laravel-vue-pagination'));
+
 import swal from 'sweetalert2';
 window.swal = swal;
 
@@ -50,10 +53,14 @@ let routes = [
   { path: '/products', component: require('./components/Products.vue').default },
   { path: '/orders', component: require('./components/Orders.vue').default },
   { path: '/category', component: require('./components/Category.vue').default },
+  { path: '/main-banner', component: require('./components/MainBanner.vue').default },
+  { path: '/product-banner', component: require('./components/ProductBanner.vue').default },
+  { path: '/product-category-banner', component: require('./components/ProductCategoryBanner.vue').default },
   { path: '/users', component: require('./components/Users.vue').default }
 ]
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('cart-component', require('./components/Cart.vue').default);
 // Vue.component('product', require('./components/Product.vue').default);
 
 /**
@@ -61,6 +68,9 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.filter('humanDate',function(created){
+    return moment(created).format('MMMM Do YYYY');
+});
 
 const router = new VueRouter({
 	mode: 'history',

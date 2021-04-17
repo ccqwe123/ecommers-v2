@@ -7,10 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Category;
 use App\Product;
 use App\Image;
+use App\Setting;
 use App\User;
 use Log;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Support\Facades\Crypt;
 class ProductController extends Controller
 {
     /**
@@ -20,10 +22,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = Product::select(['products.*','categories.name as category_name'])->leftjoin('categories','categories.id','=','products.category_id')->latest()->with('previewImage')->paginate(10);
-        log::info($product);
-        return $product;
-;    }
+        return Product::select(['products.*','categories.category_name as category_name'])->leftjoin('categories','categories.id','=','products.category_id')->latest()->with('previewImage')->with('images')->paginate(9);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -41,54 +41,64 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function productDetail(Request $request, $product_name, $product_id, $random)
+    {
+        $setting = Setting::where('onsale', '>', Carbon::now('Asia/Manila'))->count();
+        log::info($setting);
+        $dcrypt =Crypt::decryptString($product_id);
+        $products = Product::select(['products.*','categories.category_name as category_name'])->leftjoin('categories','categories.id','=','products.category_id')->with('images')->where('products.id',$dcrypt)->first();
+
+        $prod = Product::select(['products.*','categories.category_name as category_name','images.image_name'])->leftjoin('categories','categories.id','=','products.category_id')->leftjoin('images','images.product_id','=','products.id')->where('products.id',$dcrypt)->get();
+        return view('frontpage.product', [
+            'product' => $products,
+            'onsale' => $setting,
+            'images' =>$prod
+        ]);
+    }
     public function imageUpload(Request $request)
     {
-        // $datecarbon = Carbon::now()->timestamp;
-        // for ($i=0;$i<sizeof($request->images);$i++){
-        //     $originalName = $request->images[$i]->getClientOriginalName();
-        //     $setDB = str_random(5)."-".$datecarbon."-".$originalName;
-        //     $testa[$i] = \Image::make($request->images[$i])->save(public_path('images/products/').$setDB);
-        //     $product = Product::orderBy('id','desc')->first();
 
-        //     DB::table('images')
-        //         ->insert([
-        //             'product_id' => $product->id[$i] + 1,
-        //             'image_name' => $setDB
-        //         ]);
-        // }
     }
     public function store(Request $request)
     {
         $datecarbon = Carbon::now()->timestamp;
         $this->validate($request,[
-            'name'=>'required',
+            'product_name'=>'required',
             'regular_price'=>'required',
             'category_id'=>'required'
         ]);
-        // DB::beginTransaction();
+        // // DB::beginTransaction();
 
            $product =  Product::create([
-                'name' => $request['name'],
+                'product_name' => $request['product_name'],
                 'regular_price' => $request['regular_price'],
                 'sale_price' => $request['sale_price'],
                 'category_id' => $request['category_id'],
-                'stock_status' => 'instock',
-                'description' => $request['content'],
+                'stock_status' => 'InStock',
+                'description' => $request['description'],
                 'details' => $request['details'],
+                'new' => $request['new']=='true'?1:0,
+                'promo' => $request['promo']=='true'?1:0,
+                'sale' => $request['sale']=='true'?1:0,
             ]); 
-           log::info($request);
            if($request->images){
                 for ($i=0;$i<sizeof($request->images);$i++){
                     $originalName = rand('100','999').time().'.' . explode('/', explode(':', substr($request->images[$i], 0, strpos($request->images[$i], ';')))[1])[1];
-                    \Image::make($request->images[$i])->save(public_path('images/products/').$originalName);
+                    \Image::make($request->images[$i])->resize(800, 800)->save(public_path('images/products/').$originalName);
+
                     DB::table('images')
                     ->insert([
                         'product_id' => $product->id,
-                        'image_name' => $originalName
+                        'image_name' => 'images/products/'.$originalName
                     ]);
+                    if($i < 1)
+                    {
+
+                    $qwe =Product::where('id', $product->id)
+                      ->update(['image' => 'images/products/'.$originalName]);
+                    }
                 }
             }
-
            
             return ['message' => 'Product Added!'];
        
@@ -114,7 +124,49 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         $this->validate($request,[
+            'product_name'=>'required',
+            'regular_price'=>'required',
+            'category_id'=>'required'
+        ]);
+         $product = Product::findOrFail($id);
+        try {
+            // if(count($request->images[0]) > 1000)
+            if(isset($request->images[0]['image_name']))
+            {
+                $product->update($request->all());
+                return ['message' => 'Updated the product info'];
+            }else{
+                $product->update($request->all());
+                DB::table('images')
+                ->where('product_id',$id)
+                ->delete();
+
+                for ($i=0;$i<sizeof($request->images);$i++){
+                    $originalName = rand('100','999').time().'.' . explode('/', explode(':', substr($request->images[$i], 0, strpos($request->images[$i], ';')))[1])[1];
+                    \Image::make($request->images[$i])->resize(800, 800)->save(public_path('images/products/').$originalName);
+                    DB::table('images')
+                    ->insert([
+                        'product_id' => $id,
+                        'image_name' => 'images/products/'.$originalName
+                    ]);
+                    if($i < 1)
+                    {
+
+                    $qwe =Product::where('id',$id)
+                      ->update(['image' => 'images/products/'.$originalName]);
+                    }
+                }
+            }
+        } catch (Exception $e) {
+            log::info("hinde");
+            
+        }
+        // if (count($hey)>1000){
+        //     log::info('True');
+        // }else{
+        //     log::info('false');
+        // }
     }
 
     /**
@@ -125,6 +177,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $product = Product::findOrFail($id);
+        // delete the user
+
+        $product->delete();
+
+        return ['message' => 'Product Deleted'];
     }
 }

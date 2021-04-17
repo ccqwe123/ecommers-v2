@@ -58,7 +58,7 @@
     </ul>
   </nav>
 
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" style="z-index: 1;">
     <a href="/" class="brand-link">
       <img src="/images/others/bdlogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
@@ -83,12 +83,12 @@
 		              <p>Dashboard</p>
               </router-link>
          	</li>
-          	<li class="nav-item">
+            <li class="nav-item">
               <router-link to="/products" class="nav-link">
-              		<i class="fas fa-shopping-bag nav-icon"></i>
-		              <p>Products</p>
-            	</router-link>
-         	</li>
+                  <i class="fas fa-shopping-bag nav-icon"></i>
+                  <p>Products</p>
+              </router-link>
+          </li>
           	<li class="nav-item">
               <router-link to="/orders" class="nav-link">
               		<i class="fas fa-dolly-flatbed  nav-icon"></i>
@@ -108,6 +108,35 @@
 		              <p>Users</p>
             	</router-link>
          	</li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-ad"></i>
+              <p>
+                Banner
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/main-banner" class="nav-link">
+                  <i class="fas fa-folder"></i>
+                  <p>Main Banner</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/product-banner" class="nav-link">
+                  <i class="fas fa-folder"></i>
+                  <p>Latest Product</p>
+                  </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/product-category-banner" class="nav-link">
+                  <i class="fas fa-folder"></i>
+                  <p>Product Category</p>
+                  </router-link>
+              </li>
+            </ul>
+          </li>
           <li class="nav-item has-treeview {{ (\Request::route()->getName() == 'admin.banner' || \Request::route()->getName() == 'admin.on-sale') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cogs"></i>

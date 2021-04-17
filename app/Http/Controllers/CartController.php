@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Log;
+use App\Setting;
+use Gloudemans\Shoppingcart\Facades\Cart;
 class CartController extends Controller
 {
     /**
@@ -11,11 +13,38 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function getCart()
+    {
+        $cart = Cart::content();
+        $count_cart = Cart::count();
+
+        $subtotal = 0;
+        foreach ($cart as $value) {
+            $subtotal += $value->subtotal;
+        }
+        return response()->json([
+            'cart' => $cart,
+            'count_cart' => $count_cart,
+            'subtotal' => $subtotal
+        ]);
+        // log::info($cart);
+    }
     public function index()
     {
-        return view('frontpage.cart');
+        $discount = session()->get('coupon')['discount'] ?? 0;
+        $code = session()->get('coupon')['name'] ?? null;
+        $newSubtotal = (floatval(implode(explode(',',Cart::subtotal()))) - $discount);
+        if ($newSubtotal < 0) {
+            $newSubtotal = 0;
+        }
+        // return view('frontpage.cart');
+        $setting = Setting::whereNotNull('onsale')->first();
+        return view('frontpage.cart', [
+            'onsale'=>$setting,
+            'discount'=>$discount,
+            'newSubtotal'=>$newSubtotal,
+        ]);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -34,9 +63,10 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Cart::add($request->id, $request->product_name, $request->quantity, $request->price)
+        ->associate('App\Product');
+        return redirect()->route('cart.index')->with('success_message','Item was added to your cart!');
     }
-
     /**
      * Display the specified resource.
      *
@@ -45,6 +75,7 @@ class CartController extends Controller
      */
     public function show($id)
     {
+        log::info("show: ".$id);
         //
     }
 
@@ -56,7 +87,7 @@ class CartController extends Controller
      */
     public function edit($id)
     {
-        //
+        log::info("edit: ".$id);
     }
 
     /**
@@ -66,9 +97,17 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // increase cart
     public function update(Request $request, $id)
     {
-        //
+        Cart::update($id, $request->productQuantity);
+        // session()->flash('success_message', 'Quantity was updated successfully!');
+        return response()->json(['success' => true]);
+    }
+    //decrease cart
+    public function decreaseCart(Request $request, $id)
+    {
+
     }
 
     /**
@@ -77,8 +116,28 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        // log::info($id);
+        Cart::remove($request->cart_id);
+        return redirect()->back();
+        // log::info($request->cart_id);
+    }
+
+    public function checkout()
+    {
+        $discount = session()->get('coupon')['discount'] ?? 0;
+        $code = session()->get('coupon')['name'] ?? null;
+        $newSubtotal = (floatval(implode(explode(',',Cart::subtotal()))) - $discount);
+        if ($newSubtotal < 0) {
+            $newSubtotal = 0;
+        }
+        // return view('frontpage.cart');
+        $setting = Setting::whereNotNull('onsale')->first();
+        return view('frontpage.checkout', [
+            'onsale'=>$setting,
+            'discount'=>$discount,
+            'newSubtotal'=>$newSubtotal,
+        ]);
     }
 }

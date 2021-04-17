@@ -19,4 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResources(['/products' =>'API\ProductController']);
 Route::post('/products/image','API\ProductController@imageUpload');
-Route::apiResources(['/categories' =>'API\CategoryController']);
+Route::apiResources(['/category' =>'API\CategoryController']);
+Route::apiResources(['/settings' =>'API\SettingController']);
+Route::apiResources(['/banners' =>'API\BannerController']);
+Route::apiResources(['/coupon' =>'API\CouponController']);
+Route::get('/category/list/cat','API\CategoryController@categoryList');
