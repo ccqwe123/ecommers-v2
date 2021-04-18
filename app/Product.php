@@ -35,7 +35,14 @@ class Product extends Model
     }
     public function category()
     {
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class);
+    }
+
+    public function scopeWithFilters($query, $categories)
+    {
+        return $query->when(count($categories), function ($query) use ($categories) {
+                $query->whereIn('category_id', $categories);
+            });
     }
     
 }

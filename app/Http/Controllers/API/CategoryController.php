@@ -4,7 +4,9 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
 use App\Category;
+use Log;
 class CategoryController extends Controller
 {
     /**
@@ -12,6 +14,17 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function fetchCategories()
+    {
+        $categories = Category::withCount(['product' => function ($query) {
+                $query->withFilters(
+                    request()->input('categories', [])
+                );
+            }])
+            ->get();
+        log::info($categories);
+        return CategoryResource::collection($categories);
+    }
     public function categoryList()
     {
         // log::info("$cat");

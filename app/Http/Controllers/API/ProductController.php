@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductResource;
 use App\Category;
 use App\Product;
 use App\Image;
@@ -20,6 +21,39 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function fetchProducts(Request $request)
+    {
+        log::info($request);
+        $item_per_page = 12;
+        $sortperitem = 'id';
+        $sortDirection = 'asc';
+        if($request->sortperpage)
+        {
+            $item_per_page = $request->sortperpage;
+        }
+        if($request->sortperitem == 'price-asc')
+        {
+            $sortperitem = 'regular_price';
+            $sortDirection = 'asc';
+        }
+        if($request->sortperitem == 'price-desc')
+        {
+            $sortperitem = 'regular_price';
+            $sortDirection = 'desc';
+        }
+        if($request->sortperitem == 'newness')
+        {
+            $sortperitem = 'created_at';
+            $sortDirection = 'desc';
+        }
+        $products = Product::withFilters(
+            request()->input('categories', [])
+        )
+        ->orderBy($sortperitem, $sortDirection)
+        ->paginate($item_per_page);
+
+        return ProductResource::collection($products);
+    }
     public function index()
     {
         return Product::select(['products.*','categories.category_name as category_name'])->leftjoin('categories','categories.id','=','products.category_id')->latest()->with('previewImage')->with('images')->paginate(9);
@@ -44,7 +78,7 @@ class ProductController extends Controller
     public function productDetail(Request $request, $product_name, $product_id, $random)
     {
         $setting = Setting::where('onsale', '>', Carbon::now('Asia/Manila'))->count();
-        log::info($setting);
+
         $dcrypt =Crypt::decryptString($product_id);
         $products = Product::select(['products.*','categories.category_name as category_name'])->leftjoin('categories','categories.id','=','products.category_id')->with('images')->where('products.id',$dcrypt)->first();
 
@@ -159,7 +193,7 @@ class ProductController extends Controller
                 }
             }
         } catch (Exception $e) {
-            log::info("hinde");
+
             
         }
         // if (count($hey)>1000){

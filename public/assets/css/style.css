@@ -2471,7 +2471,8 @@ li.menu-item .nav-label.sale-label::before{
 }
 .wrap-pagination-info{
     margin-top: 46px;
-    border-top: 1px solid #e6e6e6;
+    border-top: 1px solid #f1f1f1;
+    zoom: 1;
 }
 .wrap-pagination-info .page-numbers{
     padding: 0;

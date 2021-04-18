@@ -61,6 +61,7 @@ let routes = [
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('cart-component', require('./components/Cart.vue').default);
+Vue.component('shop-component', require('./components/ShopComponent.vue').default);
 // Vue.component('product', require('./components/Product.vue').default);
 
 /**

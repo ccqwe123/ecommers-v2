@@ -18,8 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResources(['/products' =>'API\ProductController']);
+Route::get('/products/get/list', 'API\ProductController@fetchProducts');
 Route::post('/products/image','API\ProductController@imageUpload');
 Route::apiResources(['/category' =>'API\CategoryController']);
+Route::get('/category/get/list', 'API\CategoryController@fetchCategories');
 Route::apiResources(['/settings' =>'API\SettingController']);
 Route::apiResources(['/banners' =>'API\BannerController']);
 Route::apiResources(['/coupon' =>'API\CouponController']);
