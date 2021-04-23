@@ -194,12 +194,12 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input v-model="form.regular_price" type="number" name="regular_price" placeholder="Regular Price" 
+                                    <input v-model="form.regular_price" type="number" name="regular_price" placeholder="After Price" 
                                 class="form-control" :class="{ 'is-invalid': form.errors.has('regular_price') }">
                                     <has-error :form="form" field="regular_price"></has-error>
                                 </div>
                                 <div class="col-md-6">
-                                    <input v-model="form.sale_price" type="number" name="sale_price" placeholder="Sale Price (0 if not Sale/Promo)" 
+                                    <input v-model="form.sale_price" type="number" name="sale_price" placeholder="Before Price (0 if not Sale/Promo)" 
                                     class="form-control" :class="{ 'is-invalid': form.errors.has('sale_price') }">
                                   <has-error :form="form" field="sale_price"></has-error>
                                 </div>

@@ -1,114 +1,5 @@
 <style type="text/css" scoped>
-  .topbar-menu-area .topbar-menu .label-before.fa-mobile,
-.topbar-menu-area .topbar-menu .label-before.fa-mobile,
-.product-style-1 .product-info .product-name:hover,
-.wrap-vertical-nav li a:hover,
-.header-nav-section li>a:hover,
-.topbar-menu-area .topbar-menu ul li a:hover,
-.product-style-2 .product-info .product-name:hover span,
-.product .product-info .product-name:hover span,
-.wrap-footer-item .wrap-hotline-footer .phone-number,
-.back-link-box  .list-back-link li a:hover,
-.coppy-right-box .coppy-right-text a:hover,
-.wrap-nav.horizontal-nav .link-term:hover,
-.change-display-mode .display-mode:hover i::before,
-.change-display-mode .display-mode.active i::before,
-.ui-slider+p button:hover,
-.vertical-list li a.active,
-.center-section .wrap-search-form,
-.wrap-login-item .form-item input[type="checkbox"] + span::after,
-.post-footer .post-tags ul li,
-.wrap-iten-in-cart .products-cart .product-name a:hover,
-.summary .checkout-info .link-to-shop:hover,
-.wrap-product-detail .detail-info .quantity-input input,
-.widget-our-services .service a>i,
-.product-style-1 .product-info .wrap-btn a,
-.wrap-breadcrumb ul a:hover,
-.center-section .wrap-search-form .wrap-list-cate .list-cate li:not(.level-0):hover{
-  color: #ff2832;
-}
-
-.widget a:hover,
-.product-list-style .advance-info .wrap-btn .btn:hover,
-.product-list-style .advance-info .wrap-btn .btn:hover::before,
-.product .product-info .product-rating .count-review:hover,
-.product-list-style .advance-info .stock-info.in-stock p b,
-.wrap-login-item .form-item .link-function:hover,
-.wrap-articles article .info .post-attrs li a:hover,
-.wrap-articles article .info .post-attrs li a.link-commnet-post:hover::before,
-.wrap-articles article .info .post-name:hover .art-title,
-.widget.search-post button[type=submit]:hover i,
-.wrap-product-detail .detail-info .wrap-btn .btn:hover,
-.wrap-product-detail .detail-info .wrap-btn .btn:hover::before,
-.widget.filter-widget .vertical-list li a::after
-{
-  color: #ff2832 !important;
-}
-
-.product-style-1 .product-info .wrap-btn a::after,
-.primary .menu-item.home-icon,
-.center-section .wrap-search-form button,
-.wrap-banner .banner-link,
-.wrap-main-slide .slide-1 .btn-link,
-.wrap-main-slide .slide-3 .btn-link,
-.product-style-2 .product-thumnail .wrap-btn .function-link:hover,
-.wrap-footer-content .wrap-function-info,
-.wrap-newletter-footer .btn-submit,
-.wrap-footer-item .social-network ul li a:hover,
-.product-style-3 a.add-to-cart:hover,
-.widget.filter-widget .inline-round li a:hover,
-.widget.filter-widget .inline-round li a.active,
-.wrap-login-item .form-item .btn,
-.wrap-contacts .contact-box input[type="submit"],
-.wrap-icon-box .icon-box-item i,
-.aboutus-info.style-small-left .list-showups label input[type="radio"]:checked + span.check-box,
-.wrap-pagination-info .page-numbers li .page-number-item.current,
-.wrap-articles article .info a.btn-to-post:hover,
-.checkout-info .btn-checkout,
-.post-footer .comment-form fieldset.input-field input[type=submit],
-.wrap-product-detail .advance-info .tab-control a.active,
-#review_form_wrapper #review_form .comment-form p.form-submit input[type=submit],
-.wrap-product-detail .detail-info .wrap-butons .add-to-cart:hover,
-.wrap-product-detail .detail-info .quantity-input .btn:hover,
-.summary-item .btn,
-.choose-payment-methods .payment-method input[type=radio]:checked + span::before,
-.main-info-area .right-section .wrap-icon-section.minicart .index{
-  background: #ff2832;
-}
-.has-child-cate .toggle-control:hover::after,
-.has-child-cate .toggle-control:hover::before,
-.widget.filter-widget .vertical-list li a.btn-control:hover::before,
-.product-list-style .advance-info .add-to-cart:hover,
-.detail-media .flex-control-nav .owl-nav button:hover,
-.wrap-iten-in-cart .products-cart .quantity .quantity-input .btn:hover,
-.wrap-pagination-info .page-numbers li .page-number-item:hover{
-  background: #ff2832 !important;
-}
-.flex-control-thumbs img.flex-active,
-.wrap-product-detail .advance-info .tab-control a.active,
-.wrap-product-detail .detail-info .quantity-input .btn:hover,
-.wrap-product-detail .detail-info .wrap-butons .add-to-cart:hover,
-.product-widget-style .thumbnnail a:hover img,
-.choose-payment-methods .payment-method input[type=radio]:checked + span::before,
-.wrap-demo-item-1:hover img,
-.center-section .wrap-search-form{
-  border-color: #ff2832;
-}
-.widget.widget-tag-clouds ul li a:hover,
-.product-list-style .advance-info .add-to-cart:hover,
-.product-style-3 a.add-to-cart:hover,
-.widget.filter-widget .inline-round li a:hover,
-.widget.filter-widget .inline-round li a.active,
-.wrap-pagination-info .page-numbers li .page-number-item.current,
-.wrap-pagination-info .page-numbers li .page-number-item:hover,
-.aboutus-info.style-small-left .list-showups label input[type="radio"]:checked + span.check-box,
-.wrap-articles article .info a.btn-to-post:hover,
-.wrap-footer-content .wrap-function-info .fc-info-item{
-  border-color: #ff3c45 !important;
-}
-.wrap-footer-content .wrap-function-info .fc-info-item .wrap-left-info .fc-desc{
-  color: #ffc2c4 !important;
-}
+  
 .cat-label 
 {
   font-weight: 550!important;
@@ -117,53 +8,7 @@
 .row{
     background-color: #fff;
   }
-  /** preloader Start **/
-.preloader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999999999;
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-  overflow: hidden;
-}
-.preloader-inner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -moz-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-}
-.preloader-icon {
-  width: 100px;
-  height: 100px;
-  display: inline-block;
-  padding: 0px;
-}
-.preloader-icon span {
-  position: absolute;
-  display: inline-block;
-  width: 100px;
-  height: 100px;
-  border-radius: 100%;
-  background:#ffffff;
-  -webkit-animation: preloader-fx 1.6s linear infinite;
-  animation: preloader-fx 1.6s linear infinite;
-}
-.preloader-icon span:last-child {
-  animation-delay: -0.8s;
-  -webkit-animation-delay: -0.8s;
-}
-@keyframes preloader-fx {
-  0% {transform: scale(0, 0); opacity:0.5;}
-  100% {transform: scale(1, 1); opacity:0;}
-}
-@-webkit-keyframes preloader-fx {
-  0% {-webkit-transform: scale(0, 0); opacity:0.5;}
-  100% {-webkit-transform: scale(1, 1); opacity:0;}
-}
+
 .hideme
 {
   visibility: hidden!important;
@@ -180,7 +25,11 @@
   padding:10px;
   margin-top:20px;
 }
-
+.plist-item
+{
+      height: 105px;
+    padding: 10px;
+}
 </style>
 <template>
     <div class="container">
@@ -220,20 +69,19 @@
                 </select>
               </div>
               <div class="change-display-mode">
-                <a href="#" class="grid-mode display-mode active"><i class="fa fa-th"></i>Grid</a>
-                <a href="list.html" class="list-mode display-mode"><i class="fa fa-th-list"></i>List</a>
+                <a href="#" class="grid-mode display-mode" :class="{ 'active': gridName =='grid' }" @click.prevent="gridView('grid')"><i class="fa fa-th"></i>Grid</a>
+                <a href="#" class="list-mode display-mode" :class="{ 'active': gridName =='list' }" @click.prevent="gridView('list')"><i class="fa fa-th-list"></i>List</a>
               </div>
             </div>
           </div>
             <div class="seperator-line"></div>
-          <div class="row">
+          <div class="row" v-if="gridview">
             <div class="p-1">
               <ul class="product-list grid-products equal-container">
-              <!-- foreach -->
               <li class="col-lg-3 col-md-4 col-sm-6 col-xs-6" v-for="product in products.data">
                 <div class="product product-style-2 equal-elem ">
                   <div class="product-thumnail">
-                    <a href="/shop" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
+                    <a :href="'/shop/' + product.slug">
                         <figure><img :src="product.image" width="800" height="800"></figure>
                       </a>
                     <div class="group-flash">
@@ -243,7 +91,7 @@
                     </div>
                   </div>
                   <div class="product-info">
-                      <a href="/shop" class="product-name"><span>{{ product.product_name }}</span>
+                      <a :href="'/shop/' + product.slug" class="product-name"><span>{{ product.product_name }}</span>
                       <div class="wrap-price">
                         <ins>
                           <p class="product-price">₱{{ product.regular_price }}</p>
@@ -261,12 +109,41 @@
               </ul>
             </div>
           </div>
+          <div class="widget mercado-widget widget-product" v-else>
+            <div class="widget-content">
+              <ul class="products">
+                <!-- foreach new products -->
+                <li class="product-item plist-item" v-for="product in products.data">
+                      <a :href="'/shop/' + product.slug">
+                  <div class="product product-widget-style" style="height: unset!important">
+                    <div class="thumbnnail" style="padding-bottom: 0px !important;">
+                        <figure><img :src="product.image" alt=""></figure>
+                    </div>
+                    <div class="product-info">
+                      <a href="#" class="product-name"><span>{{ product.product_name }}</span></a>
+                      <div class="wrap-price">
+                        <span class="product-price">₱{{ product.regular_price }}</span>
+                        <del>
+                          <p class="product-price" v-if="product.sale_price !== '0.00'">
+                           {{ product.sale_price}}
+                          </p>
+                        </del>
+                      </div>
+                    </div>
+                  </div>
+                      </a>
+                </li>
+                <!-- end -->
+              </ul>
+            </div>
+          </div>
          <!-- pagination -->
          <div class="wrap-pagination-info">
          <pagination :data="this.products" @pagination-change-page="getResults" class="float-right"></pagination>
         </div>
         </div><!--end main products area-->
 
+        <input type="hidden" name="datasearch" v-model="selected.dataget">
         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 sitebar">
           <div class="widget mercado-widget filter-widget brand-widget">
             <h2 class="widget-title">Categories</h2>
@@ -285,24 +162,31 @@
               </ul>
             </div>
           </div>
-
+          
           <div class="widget mercado-widget widget-product">
             <h2 class="widget-title">New Products</h2>
             <div class="widget-content">
               <ul class="products">
                 <!-- foreach new products -->
-                <li class="product-item">
+                <li class="product-item" v-for="product in productsnew.data">
+                  <a :href="'/shop/' + product.slug">
                   <div class="product product-widget-style">
                     <div class="thumbnnail">
-                      <a href="detail.html" title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-                        <figure><img src="/images/products/default.png" alt=""></figure>
-                      </a>
+                        <figure><img :src="product.image" alt=""></figure>
                     </div>
                     <div class="product-info">
-                      <a href="#" class="product-name"><span>Product Name</span></a>
-                      <div class="wrap-price"><span class="product-price">$168.00</span></div>
+                      <span class="product-name">{{ product.product_name }}</span>
+                      <div class="wrap-price">
+                        <span class="product-price">₱{{ product.regular_price }}</span>
+                        <del>
+                          <p class="product-price" v-if="product.sale_price !== '0.00'">
+                           {{ product.sale_price}}
+                          </p>
+                        </del>
+                      </div>
                     </div>
                   </div>
+                  </a>
                 </li>
                 <!-- end -->
               </ul>
@@ -319,20 +203,28 @@
     export default {
        data() {
             return {
-                // prices: [],
+                gridview: true,
+                gridName: 'grid',
+                prices: [],
                 categories: [],
                 products: {},
+                productsnew: {},
                 loading: true,
                 selected: {
+                    prices: [],
                     categories: [],
                     sortperpage: '12',
-                    sortperitem: 'default'
+                    sortperitem: 'default',
+                    dataget: this.datasearch,
                 },
             }
         },
+      props: ['datasearch', 'csrf_token'],
         mounted() {
             this.loadProducts();
+            this.loadNewProducts();
             this.loadCategories();
+            console.log(this.datasearch);
         },
          watch: {
             selected: {
@@ -341,12 +233,6 @@
                 },
                 deep: true
             },
-            sortperpage: {
-                handler: function () {
-                    this.loadProducts();
-                },
-                deep: true
-            }
         },
         methods: {
           sortpage() {
@@ -367,9 +253,24 @@
               $('.preloader').css("visibility","");
                 axios.get('/api/products/get/list', {
                         params: this.selected,
+                        datasearch: this.datasearch
                     })
                     .then((response) => {
+                      // console.log(response.data.data);
                         this.products = response.data;
+                        $('.preloader').css("visibility","hidden");
+                        this.loading = false;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            loadNewProducts: function () {
+              $('.preloader').css("visibility","");
+                axios.get('/api/products/get/new')
+                    .then((response) => {
+                      // console.log(response.data.data);
+                        this.productsnew = response.data;
                         $('.preloader').css("visibility","hidden");
                         this.loading = false;
                     })
@@ -390,6 +291,19 @@
                       $('.preloader').css("visibility","hidden");
                   });
           },
+          gridView(grid)
+          {
+            if(grid == 'grid')
+            {
+              this.gridview = true;
+              this.gridName = 'grid';
+            }
+            if(grid == 'list')
+            {
+              this.gridview = false;
+              this.gridName = 'list';
+            }
+          }
         }
     }
 </script>

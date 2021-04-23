@@ -39,7 +39,7 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li class="dropdown-header">Hello User</li>
                     <li><a href="{{ route('user.myaccount') }}">Account Info</a></li>
-                    <li><a href="{{ route('user.address') }}">Saved Address</a></li>
+                    <li><a href="{{ route('address.index') }}">Saved Address</a></li>
                     <li class="active"><a href="#">Product Reviews</a></li>
                     <li><a href="{{ route('user.order') }}">My Orders</a></li>
                     <li><a href="{{ route('user.wishlist') }}">My Wishlist</a></li>

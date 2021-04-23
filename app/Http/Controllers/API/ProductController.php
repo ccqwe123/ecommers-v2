@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
+use App\Services\PriceService;
 use App\Category;
 use App\Product;
 use App\Image;
@@ -21,9 +23,18 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function fetchNewProducts()
+    {
+        $products = Product::orderBy('created_at', 'desc')
+        ->take(5)
+        ->get();
+
+        return ProductResource::collection($products);
+    }
     public function fetchProducts(Request $request)
     {
-        log::info($request);
+        $dataSearch = $request->dataget== NULL ? '': $request->dataget;
+        log::info($dataSearch);
         $item_per_page = 12;
         $sortperitem = 'id';
         $sortDirection = 'asc';
@@ -49,6 +60,7 @@ class ProductController extends Controller
         $products = Product::withFilters(
             request()->input('categories', [])
         )
+        ->where('product_name', 'like', '%'.$dataSearch.'%')
         ->orderBy($sortperitem, $sortDirection)
         ->paginate($item_per_page);
 
@@ -75,20 +87,35 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function productDetail(Request $request, $product_name, $product_id, $random)
+    public function showProduct(Request $request, $slug)
     {
         $setting = Setting::where('onsale', '>', Carbon::now('Asia/Manila'))->count();
+        $pslug = Product::where('slug',$slug)->first();
+        $products = Product::select(['products.*','categories.category_name as category_name'])->leftjoin('categories','categories.id','=','products.category_id')->with('images')->where('products.id',$pslug->id)->first();
 
-        $dcrypt =Crypt::decryptString($product_id);
-        $products = Product::select(['products.*','categories.category_name as category_name'])->leftjoin('categories','categories.id','=','products.category_id')->with('images')->where('products.id',$dcrypt)->first();
-
-        $prod = Product::select(['products.*','categories.category_name as category_name','images.image_name'])->leftjoin('categories','categories.id','=','products.category_id')->leftjoin('images','images.product_id','=','products.id')->where('products.id',$dcrypt)->get();
+        $prod = Product::select(['products.*','categories.category_name as category_name','images.image_name'])->leftjoin('categories','categories.id','=','products.category_id')->leftjoin('images','images.product_id','=','products.id')->where('products.id',$pslug->id)->get();
+        log::info($products);
         return view('frontpage.product', [
             'product' => $products,
             'onsale' => $setting,
             'images' =>$prod
         ]);
     }
+    // public function productDetail(Request $request, $product_name, $product_id, $random)
+    // {
+    //     $setting = Setting::where('onsale', '>', Carbon::now('Asia/Manila'))->count();
+
+    //     $dcrypt =Crypt::decryptString($product_id);
+    //     log::info($dcrypt);
+    //     $products = Product::select(['products.*','categories.category_name as category_name'])->leftjoin('categories','categories.id','=','products.category_id')->with('images')->where('products.id',$dcrypt)->first();
+
+    //     $prod = Product::select(['products.*','categories.category_name as category_name','images.image_name'])->leftjoin('categories','categories.id','=','products.category_id')->leftjoin('images','images.product_id','=','products.id')->where('products.id',$dcrypt)->get();
+    //     return view('frontpage.product', [
+    //         'product' => $products,
+    //         'onsale' => $setting,
+    //         'images' =>$prod
+    //     ]);
+    // }
     public function imageUpload(Request $request)
     {
 
@@ -106,6 +133,7 @@ class ProductController extends Controller
            $product =  Product::create([
                 'product_name' => $request['product_name'],
                 'regular_price' => $request['regular_price'],
+                'slug' => SlugService::createSlug(Product::class, 'slug', $request['product_name']),
                 'sale_price' => $request['sale_price'],
                 'category_id' => $request['category_id'],
                 'stock_status' => 'InStock',

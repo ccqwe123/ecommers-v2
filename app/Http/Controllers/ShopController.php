@@ -35,24 +35,8 @@ class ShopController extends Controller
      */
     public function shoplist(Request $request)
     {
-        $categories = Category::get();
-        $new_products = Product::whereYear('created_at', Carbon::now()->year)
-                        ->whereMonth('created_at', Carbon::now()->month)
-                        ->take(5)
-                        ->get();
-        if(!empty($request))
-        {
-            if($request[0]=='price')
-            {
-                $products = Product::select(['products.*','images.image_name'])->leftjoin('images','images.product_id','=','products.id')->groupBy('products.product_name')->orderBy('regular_price','ASC')->inRandomOrder()->paginate(12);
-                return view('frontpage.shop',compact('products','categories','new_products'));
-            }
-        }else{
-            log::info("empty");
-        }
-            $products = Product::select(['products.*','images.image_name'])->leftjoin('images','images.product_id','=','products.id')->groupBy('products.product_name')->inRandomOrder()->paginate(12);
-        
-        return view('frontpage.shop',compact('products','categories','new_products'));
+        $search = $request->search;
+        return view('frontpage.shop',compact('search'));
     }
 
     public function create()

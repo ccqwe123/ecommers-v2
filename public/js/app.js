@@ -3923,148 +3923,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      // prices: [],
+      gridview: true,
+      gridName: 'grid',
+      prices: [],
       categories: [],
       products: {},
+      productsnew: {},
       loading: true,
       selected: {
+        prices: [],
         categories: [],
         sortperpage: '12',
-        sortperitem: 'default'
+        sortperitem: 'default',
+        dataget: this.datasearch
       }
     };
   },
+  props: ['datasearch', 'csrf_token'],
   mounted: function mounted() {
     this.loadProducts();
+    this.loadNewProducts();
     this.loadCategories();
+    console.log(this.datasearch);
   },
   watch: {
     selected: {
-      handler: function handler() {
-        this.loadProducts();
-      },
-      deep: true
-    },
-    sortperpage: {
       handler: function handler() {
         this.loadProducts();
       },
@@ -4091,8 +3977,10 @@ __webpack_require__.r(__webpack_exports__);
 
       $('.preloader').css("visibility", "");
       axios.get('/api/products/get/list', {
-        params: this.selected
+        params: this.selected,
+        datasearch: this.datasearch
       }).then(function (response) {
+        // console.log(response.data.data);
         _this2.products = response.data;
         $('.preloader').css("visibility", "hidden");
         _this2.loading = false;
@@ -4100,8 +3988,21 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    getResults: function getResults() {
+    loadNewProducts: function loadNewProducts() {
       var _this3 = this;
+
+      $('.preloader').css("visibility", "");
+      axios.get('/api/products/get/new').then(function (response) {
+        // console.log(response.data.data);
+        _this3.productsnew = response.data;
+        $('.preloader').css("visibility", "hidden");
+        _this3.loading = false;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getResults: function getResults() {
+      var _this4 = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       $('.preloader').css("visibility", "");
@@ -4110,10 +4011,21 @@ __webpack_require__.r(__webpack_exports__);
         params: this.selected,
         sortparam: this.sortperpage
       }).then(function (response) {
-        _this3.products = response.data;
-        _this3.loading = false;
+        _this4.products = response.data;
+        _this4.loading = false;
         $('.preloader').css("visibility", "hidden");
       });
+    },
+    gridView: function gridView(grid) {
+      if (grid == 'grid') {
+        this.gridview = true;
+        this.gridName = 'grid';
+      }
+
+      if (grid == 'list') {
+        this.gridview = false;
+        this.gridName = 'list';
+      }
     }
   }
 });
@@ -10666,7 +10578,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.topbar-menu-area .topbar-menu .label-before.fa-mobile[data-v-2cbbc6cc],\n.topbar-menu-area .topbar-menu .label-before.fa-mobile[data-v-2cbbc6cc],\n.product-style-1 .product-info .product-name[data-v-2cbbc6cc]:hover,\n.wrap-vertical-nav li a[data-v-2cbbc6cc]:hover,\n.header-nav-section li>a[data-v-2cbbc6cc]:hover,\n.topbar-menu-area .topbar-menu ul li a[data-v-2cbbc6cc]:hover,\n.product-style-2 .product-info .product-name:hover span[data-v-2cbbc6cc],\n.product .product-info .product-name:hover span[data-v-2cbbc6cc],\n.wrap-footer-item .wrap-hotline-footer .phone-number[data-v-2cbbc6cc],\n.back-link-box  .list-back-link li a[data-v-2cbbc6cc]:hover,\n.coppy-right-box .coppy-right-text a[data-v-2cbbc6cc]:hover,\n.wrap-nav.horizontal-nav .link-term[data-v-2cbbc6cc]:hover,\n.change-display-mode .display-mode:hover i[data-v-2cbbc6cc]::before,\n.change-display-mode .display-mode.active i[data-v-2cbbc6cc]::before,\n.ui-slider+p button[data-v-2cbbc6cc]:hover,\n.vertical-list li a.active[data-v-2cbbc6cc],\n.center-section .wrap-search-form[data-v-2cbbc6cc],\n.wrap-login-item .form-item input[type=\"checkbox\"] + span[data-v-2cbbc6cc]::after,\n.post-footer .post-tags ul li[data-v-2cbbc6cc],\n.wrap-iten-in-cart .products-cart .product-name a[data-v-2cbbc6cc]:hover,\n.summary .checkout-info .link-to-shop[data-v-2cbbc6cc]:hover,\n.wrap-product-detail .detail-info .quantity-input input[data-v-2cbbc6cc],\n.widget-our-services .service a>i[data-v-2cbbc6cc],\n.product-style-1 .product-info .wrap-btn a[data-v-2cbbc6cc],\n.wrap-breadcrumb ul a[data-v-2cbbc6cc]:hover,\n.center-section .wrap-search-form .wrap-list-cate .list-cate li[data-v-2cbbc6cc]:not(.level-0):hover{\n  color: #ff2832;\n}\n.widget a[data-v-2cbbc6cc]:hover,\n.product-list-style .advance-info .wrap-btn .btn[data-v-2cbbc6cc]:hover,\n.product-list-style .advance-info .wrap-btn .btn[data-v-2cbbc6cc]:hover::before,\n.product .product-info .product-rating .count-review[data-v-2cbbc6cc]:hover,\n.product-list-style .advance-info .stock-info.in-stock p b[data-v-2cbbc6cc],\n.wrap-login-item .form-item .link-function[data-v-2cbbc6cc]:hover,\n.wrap-articles article .info .post-attrs li a[data-v-2cbbc6cc]:hover,\n.wrap-articles article .info .post-attrs li a.link-commnet-post[data-v-2cbbc6cc]:hover::before,\n.wrap-articles article .info .post-name:hover .art-title[data-v-2cbbc6cc],\n.widget.search-post button[type=submit]:hover i[data-v-2cbbc6cc],\n.wrap-product-detail .detail-info .wrap-btn .btn[data-v-2cbbc6cc]:hover,\n.wrap-product-detail .detail-info .wrap-btn .btn[data-v-2cbbc6cc]:hover::before,\n.widget.filter-widget .vertical-list li a[data-v-2cbbc6cc]::after\n{\n  color: #ff2832 !important;\n}\n.product-style-1 .product-info .wrap-btn a[data-v-2cbbc6cc]::after,\n.primary .menu-item.home-icon[data-v-2cbbc6cc],\n.center-section .wrap-search-form button[data-v-2cbbc6cc],\n.wrap-banner .banner-link[data-v-2cbbc6cc],\n.wrap-main-slide .slide-1 .btn-link[data-v-2cbbc6cc],\n.wrap-main-slide .slide-3 .btn-link[data-v-2cbbc6cc],\n.product-style-2 .product-thumnail .wrap-btn .function-link[data-v-2cbbc6cc]:hover,\n.wrap-footer-content .wrap-function-info[data-v-2cbbc6cc],\n.wrap-newletter-footer .btn-submit[data-v-2cbbc6cc],\n.wrap-footer-item .social-network ul li a[data-v-2cbbc6cc]:hover,\n.product-style-3 a.add-to-cart[data-v-2cbbc6cc]:hover,\n.widget.filter-widget .inline-round li a[data-v-2cbbc6cc]:hover,\n.widget.filter-widget .inline-round li a.active[data-v-2cbbc6cc],\n.wrap-login-item .form-item .btn[data-v-2cbbc6cc],\n.wrap-contacts .contact-box input[type=\"submit\"][data-v-2cbbc6cc],\n.wrap-icon-box .icon-box-item i[data-v-2cbbc6cc],\n.aboutus-info.style-small-left .list-showups label input[type=\"radio\"]:checked + span.check-box[data-v-2cbbc6cc],\n.wrap-pagination-info .page-numbers li .page-number-item.current[data-v-2cbbc6cc],\n.wrap-articles article .info a.btn-to-post[data-v-2cbbc6cc]:hover,\n.checkout-info .btn-checkout[data-v-2cbbc6cc],\n.post-footer .comment-form fieldset.input-field input[type=submit][data-v-2cbbc6cc],\n.wrap-product-detail .advance-info .tab-control a.active[data-v-2cbbc6cc],\n#review_form_wrapper #review_form .comment-form p.form-submit input[type=submit][data-v-2cbbc6cc],\n.wrap-product-detail .detail-info .wrap-butons .add-to-cart[data-v-2cbbc6cc]:hover,\n.wrap-product-detail .detail-info .quantity-input .btn[data-v-2cbbc6cc]:hover,\n.summary-item .btn[data-v-2cbbc6cc],\n.choose-payment-methods .payment-method input[type=radio]:checked + span[data-v-2cbbc6cc]::before,\n.main-info-area .right-section .wrap-icon-section.minicart .index[data-v-2cbbc6cc]{\n  background: #ff2832;\n}\n.has-child-cate .toggle-control[data-v-2cbbc6cc]:hover::after,\n.has-child-cate .toggle-control[data-v-2cbbc6cc]:hover::before,\n.widget.filter-widget .vertical-list li a.btn-control[data-v-2cbbc6cc]:hover::before,\n.product-list-style .advance-info .add-to-cart[data-v-2cbbc6cc]:hover,\n.detail-media .flex-control-nav .owl-nav button[data-v-2cbbc6cc]:hover,\n.wrap-iten-in-cart .products-cart .quantity .quantity-input .btn[data-v-2cbbc6cc]:hover,\n.wrap-pagination-info .page-numbers li .page-number-item[data-v-2cbbc6cc]:hover{\n  background: #ff2832 !important;\n}\n.flex-control-thumbs img.flex-active[data-v-2cbbc6cc],\n.wrap-product-detail .advance-info .tab-control a.active[data-v-2cbbc6cc],\n.wrap-product-detail .detail-info .quantity-input .btn[data-v-2cbbc6cc]:hover,\n.wrap-product-detail .detail-info .wrap-butons .add-to-cart[data-v-2cbbc6cc]:hover,\n.product-widget-style .thumbnnail a:hover img[data-v-2cbbc6cc],\n.choose-payment-methods .payment-method input[type=radio]:checked + span[data-v-2cbbc6cc]::before,\n.wrap-demo-item-1:hover img[data-v-2cbbc6cc],\n.center-section .wrap-search-form[data-v-2cbbc6cc]{\n  border-color: #ff2832;\n}\n.widget.widget-tag-clouds ul li a[data-v-2cbbc6cc]:hover,\n.product-list-style .advance-info .add-to-cart[data-v-2cbbc6cc]:hover,\n.product-style-3 a.add-to-cart[data-v-2cbbc6cc]:hover,\n.widget.filter-widget .inline-round li a[data-v-2cbbc6cc]:hover,\n.widget.filter-widget .inline-round li a.active[data-v-2cbbc6cc],\n.wrap-pagination-info .page-numbers li .page-number-item.current[data-v-2cbbc6cc],\n.wrap-pagination-info .page-numbers li .page-number-item[data-v-2cbbc6cc]:hover,\n.aboutus-info.style-small-left .list-showups label input[type=\"radio\"]:checked + span.check-box[data-v-2cbbc6cc],\n.wrap-articles article .info a.btn-to-post[data-v-2cbbc6cc]:hover,\n.wrap-footer-content .wrap-function-info .fc-info-item[data-v-2cbbc6cc]{\n  border-color: #ff3c45 !important;\n}\n.wrap-footer-content .wrap-function-info .fc-info-item .wrap-left-info .fc-desc[data-v-2cbbc6cc]{\n  color: #ffc2c4 !important;\n}\n.cat-label[data-v-2cbbc6cc] \n{\n  font-weight: 550!important;\n    padding: 5px!important;\n}\n.row[data-v-2cbbc6cc]{\n    background-color: #fff;\n}\n  /** preloader Start **/\n.preloader[data-v-2cbbc6cc] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 999999999;\n  width: 100%;\n  height: 100%;\n  background-color: #fff;\n  overflow: hidden;\n}\n.preloader-inner[data-v-2cbbc6cc] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%,-50%);\n}\n.preloader-icon[data-v-2cbbc6cc] {\n  width: 100px;\n  height: 100px;\n  display: inline-block;\n  padding: 0px;\n}\n.preloader-icon span[data-v-2cbbc6cc] {\n  position: absolute;\n  display: inline-block;\n  width: 100px;\n  height: 100px;\n  border-radius: 100%;\n  background:#ffffff;\n  -webkit-animation: preloader-fx-data-v-2cbbc6cc 1.6s linear infinite;\n  animation: preloader-fx-data-v-2cbbc6cc 1.6s linear infinite;\n}\n.preloader-icon span[data-v-2cbbc6cc]:last-child {\n  animation-delay: -0.8s;\n  -webkit-animation-delay: -0.8s;\n}\n@keyframes preloader-fx-data-v-2cbbc6cc {\n0% {transform: scale(0, 0); opacity:0.5;}\n100% {transform: scale(1, 1); opacity:0;}\n}\n@-webkit-keyframes preloader-fx-data-v-2cbbc6cc {\n0% {-webkit-transform: scale(0, 0); opacity:0.5;}\n100% {-webkit-transform: scale(1, 1); opacity:0;}\n}\n.hideme[data-v-2cbbc6cc]\n{\n  visibility: hidden!important;\n}\n/** preloader End **/\n.main-site[data-v-2cbbc6cc]\n{\n    background: #f5f5f5;\n}\n.seperator-line[data-v-2cbbc6cc]\n{\n  border-top: 1px solid #f1f1f1;\n    zoom: 1;\n  padding:10px;\n  margin-top:20px;\n}\n\n", ""]);
+exports.push([module.i, "\n.cat-label[data-v-2cbbc6cc] \n{\n  font-weight: 550!important;\n    padding: 5px!important;\n}\n.row[data-v-2cbbc6cc]{\n    background-color: #fff;\n}\n.hideme[data-v-2cbbc6cc]\n{\n  visibility: hidden!important;\n}\n/** preloader End **/\n.main-site[data-v-2cbbc6cc]\n{\n    background: #f5f5f5;\n}\n.seperator-line[data-v-2cbbc6cc]\n{\n  border-top: 1px solid #f1f1f1;\n    zoom: 1;\n  padding:10px;\n  margin-top:20px;\n}\n.plist-item[data-v-2cbbc6cc]\n{\n      height: 105px;\n    padding: 10px;\n}\n", ""]);
 
 // exports
 
@@ -99392,7 +99304,7 @@ var render = function() {
                             attrs: {
                               type: "number",
                               name: "regular_price",
-                              placeholder: "Regular Price"
+                              placeholder: "After Price"
                             },
                             domProps: { value: _vm.form.regular_price },
                             on: {
@@ -99436,7 +99348,7 @@ var render = function() {
                             attrs: {
                               type: "number",
                               name: "sale_price",
-                              placeholder: "Sale Price (0 if not Sale/Promo)"
+                              placeholder: "Before Price (0 if not Sale/Promo)"
                             },
                             domProps: { value: _vm.form.sale_price },
                             on: {
@@ -99951,127 +99863,269 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._m(2)
+              _c("div", { staticClass: "change-display-mode" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "grid-mode display-mode",
+                    class: { active: _vm.gridName == "grid" },
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.gridView("grid")
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fa fa-th" }), _vm._v("Grid")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "list-mode display-mode",
+                    class: { active: _vm.gridName == "list" },
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.gridView("list")
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fa fa-th-list" }), _vm._v("List")]
+                )
+              ])
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "seperator-line" }),
           _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "p-1" }, [
-              _c(
-                "ul",
-                { staticClass: "product-list grid-products equal-container" },
-                _vm._l(_vm.products.data, function(product) {
-                  return _c(
-                    "li",
-                    { staticClass: "col-lg-3 col-md-4 col-sm-6 col-xs-6" },
-                    [
-                      _c(
-                        "div",
-                        { staticClass: "product product-style-2 equal-elem " },
+          _vm.gridview
+            ? _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "p-1" }, [
+                  _c(
+                    "ul",
+                    {
+                      staticClass: "product-list grid-products equal-container"
+                    },
+                    _vm._l(_vm.products.data, function(product) {
+                      return _c(
+                        "li",
+                        { staticClass: "col-lg-3 col-md-4 col-sm-6 col-xs-6" },
                         [
-                          _c("div", { staticClass: "product-thumnail" }, [
-                            _c(
-                              "a",
-                              {
-                                attrs: {
-                                  href: "/shop",
-                                  title:
-                                    "T-Shirt Raw Hem Organic Boro Constrast Denim"
-                                }
-                              },
-                              [
-                                _c("figure", [
-                                  _c("img", {
-                                    attrs: {
-                                      src: product.image,
-                                      width: "800",
-                                      height: "800"
-                                    }
-                                  })
-                                ])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "group-flash" }, [
-                              product.new === "1"
-                                ? _c(
-                                    "span",
-                                    { staticClass: "flash-item new-label" },
-                                    [_vm._v("New")]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              product.promo === "1"
-                                ? _c(
-                                    "span",
-                                    {
-                                      staticClass: "flash-item bestseller-label"
-                                    },
-                                    [_vm._v("Promo")]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              product.sale === "1"
-                                ? _c(
-                                    "span",
-                                    { staticClass: "flash-item sale-label" },
-                                    [_vm._v("Sale")]
-                                  )
-                                : _vm._e()
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "product-info" }, [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "product-name",
-                                attrs: { href: "/shop" }
-                              },
-                              [
-                                _c("span", [
-                                  _vm._v(_vm._s(product.product_name))
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "wrap-price" }, [
-                                  _c("ins", [
-                                    _c("p", { staticClass: "product-price" }, [
-                                      _vm._v(
-                                        "₱" + _vm._s(product.regular_price)
-                                      )
+                          _c(
+                            "div",
+                            {
+                              staticClass: "product product-style-2 equal-elem "
+                            },
+                            [
+                              _c("div", { staticClass: "product-thumnail" }, [
+                                _c(
+                                  "a",
+                                  { attrs: { href: "/shop/" + product.slug } },
+                                  [
+                                    _c("figure", [
+                                      _c("img", {
+                                        attrs: {
+                                          src: product.image,
+                                          width: "800",
+                                          height: "800"
+                                        }
+                                      })
                                     ])
-                                  ]),
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "group-flash" }, [
+                                  product.new === "1"
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "flash-item new-label" },
+                                        [_vm._v("New")]
+                                      )
+                                    : _vm._e(),
                                   _vm._v(" "),
-                                  _c("del", [
-                                    product.sale_price !== "0.00"
-                                      ? _c(
+                                  product.promo === "1"
+                                    ? _c(
+                                        "span",
+                                        {
+                                          staticClass:
+                                            "flash-item bestseller-label"
+                                        },
+                                        [_vm._v("Promo")]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  product.sale === "1"
+                                    ? _c(
+                                        "span",
+                                        {
+                                          staticClass: "flash-item sale-label"
+                                        },
+                                        [_vm._v("Sale")]
+                                      )
+                                    : _vm._e()
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "product-info" }, [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "product-name",
+                                    attrs: { href: "/shop/" + product.slug }
+                                  },
+                                  [
+                                    _c("span", [
+                                      _vm._v(_vm._s(product.product_name))
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "wrap-price" }, [
+                                      _c("ins", [
+                                        _c(
                                           "p",
                                           { staticClass: "product-price" },
                                           [
                                             _vm._v(
-                                              "\n                       " +
-                                                _vm._s(product.sale_price) +
-                                                "\n                      "
+                                              "₱" +
+                                                _vm._s(product.regular_price)
                                             )
                                           ]
                                         )
-                                      : _vm._e()
-                                  ])
-                                ])
-                              ]
-                            )
-                          ])
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("del", [
+                                        product.sale_price !== "0.00"
+                                          ? _c(
+                                              "p",
+                                              { staticClass: "product-price" },
+                                              [
+                                                _vm._v(
+                                                  "\n                       " +
+                                                    _vm._s(product.sale_price) +
+                                                    "\n                      "
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e()
+                                      ])
+                                    ])
+                                  ]
+                                )
+                              ])
+                            ]
+                          )
                         ]
                       )
-                    ]
+                    }),
+                    0
                   )
-                }),
-                0
-              )
-            ])
-          ]),
+                ])
+              ])
+            : _c(
+                "div",
+                { staticClass: "widget mercado-widget widget-product" },
+                [
+                  _c("div", { staticClass: "widget-content" }, [
+                    _c(
+                      "ul",
+                      { staticClass: "products" },
+                      _vm._l(_vm.products.data, function(product) {
+                        return _c(
+                          "li",
+                          { staticClass: "product-item plist-item" },
+                          [
+                            _c(
+                              "a",
+                              { attrs: { href: "/shop/" + product.slug } },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "product product-widget-style",
+                                    staticStyle: { height: "unset!important" }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass: "thumbnnail",
+                                        staticStyle: {
+                                          "padding-bottom": "0px !important"
+                                        }
+                                      },
+                                      [
+                                        _c("figure", [
+                                          _c("img", {
+                                            attrs: {
+                                              src: product.image,
+                                              alt: ""
+                                            }
+                                          })
+                                        ])
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "product-info" }, [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "product-name",
+                                          attrs: { href: "#" }
+                                        },
+                                        [
+                                          _c("span", [
+                                            _vm._v(_vm._s(product.product_name))
+                                          ])
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("div", { staticClass: "wrap-price" }, [
+                                        _c(
+                                          "span",
+                                          { staticClass: "product-price" },
+                                          [
+                                            _vm._v(
+                                              "₱" +
+                                                _vm._s(product.regular_price)
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("del", [
+                                          product.sale_price !== "0.00"
+                                            ? _c(
+                                                "p",
+                                                {
+                                                  staticClass: "product-price"
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                       " +
+                                                      _vm._s(
+                                                        product.sale_price
+                                                      ) +
+                                                      "\n                      "
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e()
+                                        ])
+                                      ])
+                                    ])
+                                  ]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                ]
+              ),
           _vm._v(" "),
           _c(
             "div",
@@ -100087,6 +100141,27 @@ var render = function() {
           )
         ]
       ),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.selected.dataget,
+            expression: "selected.dataget"
+          }
+        ],
+        attrs: { type: "hidden", name: "datasearch" },
+        domProps: { value: _vm.selected.dataget },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.selected, "dataget", $event.target.value)
+          }
+        }
+      }),
       _vm._v(" "),
       _c(
         "div",
@@ -100184,7 +100259,7 @@ var render = function() {
                       )
                     }),
                     _vm._v(" "),
-                    _vm._m(3)
+                    _vm._m(2)
                   ],
                   2
                 )
@@ -100192,7 +100267,60 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(4)
+          _c("div", { staticClass: "widget mercado-widget widget-product" }, [
+            _c("h2", { staticClass: "widget-title" }, [_vm._v("New Products")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "widget-content" }, [
+              _c(
+                "ul",
+                { staticClass: "products" },
+                _vm._l(_vm.productsnew.data, function(product) {
+                  return _c("li", { staticClass: "product-item" }, [
+                    _c("a", { attrs: { href: "/shop/" + product.slug } }, [
+                      _c(
+                        "div",
+                        { staticClass: "product product-widget-style" },
+                        [
+                          _c("div", { staticClass: "thumbnnail" }, [
+                            _c("figure", [
+                              _c("img", {
+                                attrs: { src: product.image, alt: "" }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "product-info" }, [
+                            _c("span", { staticClass: "product-name" }, [
+                              _vm._v(_vm._s(product.product_name))
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "wrap-price" }, [
+                              _c("span", { staticClass: "product-price" }, [
+                                _vm._v("₱" + _vm._s(product.regular_price))
+                              ]),
+                              _vm._v(" "),
+                              _c("del", [
+                                product.sale_price !== "0.00"
+                                  ? _c("p", { staticClass: "product-price" }, [
+                                      _vm._v(
+                                        "\n                       " +
+                                          _vm._s(product.sale_price) +
+                                          "\n                      "
+                                      )
+                                    ])
+                                  : _vm._e()
+                              ])
+                            ])
+                          ])
+                        ]
+                      )
+                    ])
+                  ])
+                }),
+                0
+              )
+            ])
+          ])
         ]
       )
     ])
@@ -100235,24 +100363,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "change-display-mode" }, [
-      _c(
-        "a",
-        { staticClass: "grid-mode display-mode active", attrs: { href: "#" } },
-        [_c("i", { staticClass: "fa fa-th" }), _vm._v("Grid")]
-      ),
-      _vm._v(" "),
-      _c(
-        "a",
-        { staticClass: "list-mode display-mode", attrs: { href: "list.html" } },
-        [_c("i", { staticClass: "fa fa-th-list" }), _vm._v("List")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("li", { staticClass: "list-item" }, [
       _c(
         "a",
@@ -100272,54 +100382,6 @@ var staticRenderFns = [
           })
         ]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "widget mercado-widget widget-product" }, [
-      _c("h2", { staticClass: "widget-title" }, [_vm._v("New Products")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "widget-content" }, [
-        _c("ul", { staticClass: "products" }, [
-          _c("li", { staticClass: "product-item" }, [
-            _c("div", { staticClass: "product product-widget-style" }, [
-              _c("div", { staticClass: "thumbnnail" }, [
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href: "detail.html",
-                      title:
-                        "Radiant-360 R6 Wireless Omnidirectional Speaker [White]"
-                    }
-                  },
-                  [
-                    _c("figure", [
-                      _c("img", {
-                        attrs: { src: "/images/products/default.png", alt: "" }
-                      })
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "product-info" }, [
-                _c("a", { staticClass: "product-name", attrs: { href: "#" } }, [
-                  _c("span", [_vm._v("Product Name")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "wrap-price" }, [
-                  _c("span", { staticClass: "product-price" }, [
-                    _vm._v("$168.00")
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ])
-      ])
     ])
   }
 ]

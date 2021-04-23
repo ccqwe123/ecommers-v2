@@ -11,8 +11,8 @@
 |
 */
 Route::get('/', 'ShopController@index')->name('shop.list');
-Route::get('/shop', 'ShopController@shoplist');
-Route::get('/category-get', 'CategoryController@categoryList');
+Route::get('/shop', 'ShopController@shoplist')->name('shop.list');
+Route::get('/category-get', 'API\CategoryController@categoryList');
 Route::delete('/cart/{id}/delete/data','CartController@destroy')->name('cart.deldata');
 Route::get('/cart/data-list','CartController@getCart')->name('cart.get');
 Route::get('cart', 'CartController@index')->name('cart.index');
@@ -26,9 +26,8 @@ Route::get('/cart/empty', function() {
 	return redirect()->route('cart.index')->with('success_message','Cart has been cleared!');
 });
 Route::get('/checkout', 'CartController@checkout')->name('checkout.index')->middleware('auth');
-// Route::post('/cart-update/{row_id}/{quantity}','CartController@updateCart')->name('cart.updatesecond');
 Route::patch('/cart/{product}','CartController@update')->name('cart.update');
-Route::get('/shop/{product_name}/{product_id}/{random}','API\ProductController@productDetail')->name('product.details');
+Route::get('/shop/{slug}','API\ProductController@showProduct')->name('product.showproduct');
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 Route::get('login/facebook/confirmation/{user_id}', 'Auth\LoginController@viewSetPassword');
@@ -37,11 +36,9 @@ Route::post('confirm/password', 'Auth\LoginController@updateSocialAccountWithPas
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-
 Route::get('/account', 'UserController@myaccount')->name('user.myaccount');
-Route::post('/accoqwdwq2unt/info', 'UserController@saveInfo')->name('user.saveinfo');	
-Route::get('/address', 'UserController@userAddress')->name('user.address');	
+Route::post('/account/info', 'UserController@saveInfo')->name('user.saveinfo');		
+Route::resource('/address', 'AddressController');	
 Route::get('/reviews', 'UserController@userReviews')->name('user.review');	
 Route::get('/orders', 'UserController@userOrders')->name('user.order');	
 Route::get('/wishlist', 'UserController@userWishlist')->name('user.wishlist');	

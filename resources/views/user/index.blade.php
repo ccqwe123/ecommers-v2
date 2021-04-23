@@ -40,7 +40,7 @@ input[type="text"]{font: 15px/24px "Lato", Arial, sans-serif; color: #333; width
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li class="dropdown-header">Hello User</li>
                     <li class="active"><a href="#">Account Info</a></li>
-                    <li><a href="{{ route('user.address') }}">Saved Address</a></li>
+                    <li><a href="{{ route('address.index') }}">Saved Address</a></li>
                     <li><a href="{{ route('user.review') }}">Product Reviews</a></li>
                     <li><a href="{{ route('user.order') }}">My Orders</a></li>
                     <li><a href="{{ route('user.wishlist') }}">My Wishlist</a></li>
@@ -51,17 +51,25 @@ input[type="text"]{font: 15px/24px "Lato", Arial, sans-serif; color: #333; width
             <div class="invoice p-3 mb-3">
               <div class="row">
                 @if($errors->all())
-                                <fieldset class="wrap-title item-slide">
-                                    <div class="alert slide-info slide-1">
-                                      <span class="closebtn f-title" onclick="this.parentElement.style.display='none';">&times;</span>
-                                @foreach ($errors->all() as $error)
-                                      <ul>
-                                          <li>{{ $error }}</li>
-                                      </ul>
-                                @endforeach
-                                    </div>
-                                </fieldset> 
-                                @endif
+                    <fieldset class="wrap-title item-slide">
+                        <div class="alert slide-info slide-1">
+                          <span class="closebtn f-title" onclick="this.parentElement.style.display='none';">&times;</span>
+                    @foreach ($errors->all() as $error)
+                          <ul>
+                              <li>{{ $error }}</li>
+                          </ul>
+                    @endforeach
+                        </div>
+                    </fieldset> 
+                @endif
+                @if(session('success'))
+                    <fieldset class="wrap-title item-slide">
+                        <div class="alert-success slide-info slide-1">
+                          <span class="closebtn f-title" onclick="this.parentElement.style.display='none';">&times;</span>
+                            <i class="fa fa-check"></i> &nbsp;{{session('success')}}
+                        </div>
+                    </fieldset>
+                @endif
                 <form action="{{ route('user.saveinfo') }}" method="POST">
                     {{ csrf_field() }}
                     <div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">

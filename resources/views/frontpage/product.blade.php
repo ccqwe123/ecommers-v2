@@ -50,7 +50,7 @@
 	            @endif
 					</div>
 			</div>
-			<div class="row">
+			<div class="row bg-white">
 				<div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 main-content-area">
 					<div class="wrap-product-detail">
 						<div class="detail-media">
@@ -511,6 +511,9 @@
 @section('script')
 <script type="text/javascript">
 	$(document).ready(function() {
+		$('body').removeClass('no-scroll');
+		$('body').removeClass('loading-data');
+        }, 2500);
 		if($(".quantity-input").length > 0){
                 $(".quantity-input").on('click', '.btn', function(event) {
                     event.preventDefault();
@@ -529,8 +532,6 @@
 		window.scrollTo(0, 0);
         $('.preloader').delay(2500).fadeOut('slow');
         setTimeout(function() {
-        $('body').removeClass('no-scroll');
-        }, 2500);
 	});
 </script>
 @stop

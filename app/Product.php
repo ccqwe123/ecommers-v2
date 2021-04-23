@@ -3,14 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 use App\Image;
 use App\Category;
 class Product extends Model
 {
+    use Sluggable;
     protected $table = "products";
     protected $fillable = [
     	'product_name',
     	'details',
+        'slug',
     	'regular_price',
     	'sale_price',
     	'description',
@@ -21,6 +24,15 @@ class Product extends Model
         'sale',
     	'image'
     ];
+
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'product_name'
+            ]
+        ];
+    }
     public function categories()
     {
         return $this->belongsTo(Category::class,'id');

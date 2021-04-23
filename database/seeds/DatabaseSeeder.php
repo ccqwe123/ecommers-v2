@@ -67,6 +67,8 @@ class DatabaseSeeder extends Seeder
             'bstyle' => '3'
         ]);
         $this->call(CouponTableSeeder::class);
-
+        $this->call(AddressSeeder::class);
+        factory(\App\Category::class, 5)->create();
+        factory(\App\Product::class, 22)->create();
     }
 }

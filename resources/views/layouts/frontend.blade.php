@@ -18,7 +18,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/color-01.css') }}">
 </head>
-<body class="home-page home-01 shopping-cart loading-data no-scroll">
+<body class="home-page home-01 shopping-cart loading-data no-scroll noselect">
 	@yield('preloader')
 	<!-- mobile menu -->
     <div class="mercado-clone-wrap">
@@ -101,10 +101,11 @@
 
 						<div class="wrap-search center-section">
 							<div class="wrap-search-form">
-								<form action="#" id="form-search-top" name="form-search-top">
+								<form action="{{ URL::route('shop.list') }}" method="GET" id="form-search-top">
+									{{ csrf_field() }}
 									<input type="text" name="search" value="" placeholder="Search here...">
-									<button form="form-search-top" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
-									<div class="wrap-list-cate">
+									<button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+									<!-- <div class="wrap-list-cate">
 										<input type="hidden" name="product-cate" value="0" id="product-cate">
 										<a href="#" class="link-control">All Category</a>
 										<ul class="list-cate">
@@ -126,7 +127,7 @@
 											<li class="level-2">Mp3 Player & Headphones</li>
 											<li class="level-2">Table & Accessories</li>
 										</ul>
-									</div>
+									</div> -->
 								</form>
 							</div>
 						</div>

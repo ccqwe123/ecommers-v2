@@ -17,10 +17,6 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function userAddress()
-    {
-        return view('user.address');
-    }
 
     public function userReviews()
     {
@@ -37,7 +33,7 @@ class UserController extends Controller
         $user = Auth::user();
         return view('user.index', ['user'=>$user]);
     }
-
+    
     public function saveInfo(Request $request)
     {
         $this->validate($request,[
@@ -47,5 +43,7 @@ class UserController extends Controller
         ]);
         $user = User::findorfail(Auth::user()->id);
         $user->update($request->all());
+
+        return redirect()->back()->with('success', 'Account Information Successfully Updated');
     }
 }
