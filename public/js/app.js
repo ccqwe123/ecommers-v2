@@ -3923,9 +3923,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      logItems: {},
       gridview: true,
       gridName: 'grid',
       prices: [],
@@ -3943,6 +3945,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: ['datasearch', 'csrf_token'],
+  computed: {
+    logItemsCount: function logItemsCount() {
+      return Object.keys(this.logItems).length;
+    }
+  },
   mounted: function mounted() {
     this.loadProducts();
     this.loadNewProducts();
@@ -3958,6 +3965,18 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    percentage: function percentage(product) {
+      var x = parseFloat(product.sale_price.replace(/,/g, ''));
+      var y = parseFloat(product.regular_price.replace(/,/g, ''));
+      var total = y / x * 100;
+
+      if (isFinite(parseFloat(total).toFixed(0))) {
+        console.log("infinite me");
+      } // console.log(total);
+
+
+      return "-" + parseFloat(total).toFixed(0) + "%";
+    },
     sortpage: function sortpage() {
       return this.selected.sortperpage;
     },
@@ -3968,6 +3987,7 @@ __webpack_require__.r(__webpack_exports__);
         params: _.omit(this.selected, 'categories')
       }).then(function (response) {
         _this.categories = response.data.data;
+        _this.logItems = response.data.data;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -10578,7 +10598,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.cat-label[data-v-2cbbc6cc] \n{\n  font-weight: 550!important;\n    padding: 5px!important;\n}\n.row[data-v-2cbbc6cc]{\n    background-color: #fff;\n}\n.hideme[data-v-2cbbc6cc]\n{\n  visibility: hidden!important;\n}\n/** preloader End **/\n.main-site[data-v-2cbbc6cc]\n{\n    background: #f5f5f5;\n}\n.seperator-line[data-v-2cbbc6cc]\n{\n  border-top: 1px solid #f1f1f1;\n    zoom: 1;\n  padding:10px;\n  margin-top:20px;\n}\n.plist-item[data-v-2cbbc6cc]\n{\n      height: 105px;\n    padding: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.cat-label[data-v-2cbbc6cc] \r\n{\r\n  font-weight: 550!important;\r\n    padding: 5px!important;\n}\n.row[data-v-2cbbc6cc]{\r\n    background-color: #fff;\n}\n.hideme[data-v-2cbbc6cc]\r\n{\r\n  visibility: hidden!important;\n}\r\n/** preloader End **/\n.main-site[data-v-2cbbc6cc]\r\n{\r\n    background: #f5f5f5;\n}\n.seperator-line[data-v-2cbbc6cc]\r\n{\r\n  border-top: 1px solid #f1f1f1;\r\n    zoom: 1;\r\n  padding:10px;\r\n  margin-top:20px;\n}\n.plist-item[data-v-2cbbc6cc]\r\n{\r\n      height: 105px;\r\n    padding: 10px;\n}\r\n", ""]);
 
 // exports
 
@@ -37391,19 +37411,12 @@ var computed = ref.computed;
 var prevButtonEvents = ref.prevButtonEvents;
 var nextButtonEvents = ref.nextButtonEvents;
 var pageButtonEvents = ref.pageButtonEvents;
-return (computed.total > computed.perPage)?_c('ul',{staticClass:"page-numbers",class:{
+return (computed.total > computed.perPage)?_c('ul',{staticClass:"pagination",class:{
             'pagination-sm': size == 'small',
             'pagination-lg': size == 'large',
             'justify-content-center': align == 'center',
             'justify-content-end': align == 'right'
-        }},
-        [(computed.prevPageUrl || showDisabled)?_c('li',{staticClass:"",class:{'disabled': !computed.prevPageUrl}},[_c('a',_vm._g({staticClass:"page-number-item",attrs:{"href":"#","aria-label":"Previous","tabindex":!computed.prevPageUrl && -1}},prevButtonEvents),[_vm._t("next-link",[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("Back")]),_c('span',{staticClass:"sr-only"},[_vm._v("Previous")])])],2)])
-        :_vm._e(),_vm._l((computed.pageRange),function(page,key){return _c('li',{key:key,staticClass:"",class:{ '': page == computed.currentPage }},[_c('span',_vm._g({staticClass:"page-number-item",class:{ 'current': page == computed.currentPage }},pageButtonEvents(page)),[_vm._v(page)])])}),(computed.nextPageUrl || showDisabled)?_c('li',{staticClass:"",class:{'': !computed.nextPageUrl}},[_c('a',_vm._g({staticClass:"page-link",attrs:{"href":"#","aria-label":"Next","tabindex":!computed.nextPageUrl && -1}},nextButtonEvents),[_vm._t("next-nav",[_c('span',{staticClass:"page-number-item next-link"},[_vm._v("Next")])])],2)]):_vm._e()],2):_vm._e()}}],null,true)})}
-       
-       // [(computed.prevPageUrl || showDisabled)?_c('li',{staticClass:"page-item pagination-prev-nav",class:{'disabled': !computed.prevPageUrl}},[_c('a',_vm._g({staticClass:"page-link",attrs:{"href":"#","aria-label":"Previous","tabindex":!computed.prevPageUrl && -1}},prevButtonEvents),[_vm._t("prev-nav",[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("«")]),_c('span',{staticClass:"sr-only"},[_vm._v("Previous")])])],2)])
-       // :_vm._e(),_vm._l((computed.pageRange),function(page,key){return _c('li',{key:key,staticClass:"",class:{ '': page == computed.currentPage }},[_c('a',_vm._g({staticClass:"",attrs:{"href":"#"}},pageButtonEvents(page)),[_vm._v(_vm._s(page)),(page == computed.currentPage)?_c('span',{staticClass:"sr-only"},[_vm._v("(current)")]):_vm._e()])])}),(computed.nextPageUrl || showDisabled)?_c('li',{staticClass:"page-item pagination-next-nav",class:{'disabled': !computed.nextPageUrl}},[_c('a',_vm._g({staticClass:"page-link",attrs:{"href":"#","aria-label":"Next","tabindex":!computed.nextPageUrl && -1}},nextButtonEvents),[_vm._t("next-nav",[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("»")]),_c('span',{staticClass:"sr-only"},[_vm._v("Next")])])],2)]):_vm._e()],2):_vm._e()}}],null,true)})}
-       // :_vm._e(),_vm._l((computed.pageRange),function(page,key){return _c('li',{key:key,staticClass:"page-item pagination-page-nav",class:{ 'active': page == computed.currentPage }},[_c('a',_vm._g({staticClass:"page-link",attrs:{"href":"#"}},pageButtonEvents(page)),[_vm._v("\n                "+_vm._s(page)+"\n                "),(page == computed.currentPage)?_c('span',{staticClass:"sr-only"},[_vm._v("(current)")]):_vm._e()])])}),(computed.nextPageUrl || showDisabled)?_c('li',{staticClass:"page-item pagination-next-nav",class:{'disabled': !computed.nextPageUrl}},[_c('a',_vm._g({staticClass:"page-link",attrs:{"href":"#","aria-label":"Next","tabindex":!computed.nextPageUrl && -1}},nextButtonEvents),[_vm._t("next-nav",[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("»")]),_c('span',{staticClass:"sr-only"},[_vm._v("Next")])])],2)]):_vm._e()],2):_vm._e()}}],null,true)})}
-
+        }},[(computed.prevPageUrl || showDisabled)?_c('li',{staticClass:"page-item pagination-prev-nav",class:{'disabled': !computed.prevPageUrl}},[_c('a',_vm._g({staticClass:"page-link",attrs:{"href":"#","aria-label":"Previous","tabindex":!computed.prevPageUrl && -1}},prevButtonEvents),[_vm._t("prev-nav",[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("«")]),_c('span',{staticClass:"sr-only"},[_vm._v("Previous")])])],2)]):_vm._e(),_vm._l((computed.pageRange),function(page,key){return _c('li',{key:key,staticClass:"page-item pagination-page-nav",class:{ 'active': page == computed.currentPage }},[_c('a',_vm._g({staticClass:"page-link",attrs:{"href":"#"}},pageButtonEvents(page)),[_vm._v("\n                "+_vm._s(page)+"\n                "),(page == computed.currentPage)?_c('span',{staticClass:"sr-only"},[_vm._v("(current)")]):_vm._e()])])}),(computed.nextPageUrl || showDisabled)?_c('li',{staticClass:"page-item pagination-next-nav",class:{'disabled': !computed.nextPageUrl}},[_c('a',_vm._g({staticClass:"page-link",attrs:{"href":"#","aria-label":"Next","tabindex":!computed.nextPageUrl && -1}},nextButtonEvents),[_vm._t("next-nav",[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("»")]),_c('span',{staticClass:"sr-only"},[_vm._v("Next")])])],2)]):_vm._e()],2):_vm._e()}}],null,true)})}
 var staticRenderFns = []
 
 
@@ -99917,7 +99930,8 @@ var render = function() {
                           _c(
                             "div",
                             {
-                              staticClass: "product product-style-2 equal-elem "
+                              staticClass:
+                                "product product-style-2 equal-elem shop-product"
                             },
                             [
                               _c("div", { staticClass: "product-thumnail" }, [
@@ -100009,7 +100023,19 @@ var render = function() {
                                               ]
                                             )
                                           : _vm._e()
-                                      ])
+                                      ]),
+                                      _vm._v(" "),
+                                      _vm.percentage(product) != "-Infinity%"
+                                        ? _c(
+                                            "span",
+                                            { staticClass: "percentage" },
+                                            [
+                                              _vm._v(
+                                                _vm._s(_vm.percentage(product))
+                                              )
+                                            ]
+                                          )
+                                        : _vm._e()
                                     ])
                                   ]
                                 )
@@ -100259,7 +100285,21 @@ var render = function() {
                       )
                     }),
                     _vm._v(" "),
-                    _vm._m(2)
+                    _c(
+                      "li",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.logItemsCount > 7,
+                            expression: "logItemsCount > 7"
+                          }
+                        ],
+                        staticClass: "list-item"
+                      },
+                      [_vm._m(2)]
+                    )
                   ],
                   2
                 )
@@ -100363,26 +100403,24 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "list-item" }, [
-      _c(
-        "a",
-        {
-          staticClass: "btn-control control-show-more",
-          attrs: {
-            "data-label":
-              'Show less<i class="fa fa-angle-up" aria-hidden="true"></i>',
-            href: "#"
-          }
-        },
-        [
-          _vm._v("Show more"),
-          _c("i", {
-            staticClass: "fa fa-angle-down",
-            attrs: { "aria-hidden": "true" }
-          })
-        ]
-      )
-    ])
+    return _c(
+      "a",
+      {
+        staticClass: "btn-control control-show-more",
+        attrs: {
+          "data-label":
+            'Show less<i class="fa fa-angle-up" aria-hidden="true"></i>',
+          href: "#"
+        }
+      },
+      [
+        _vm._v("Show more"),
+        _c("i", {
+          staticClass: "fa fa-angle-down",
+          attrs: { "aria-hidden": "true" }
+        })
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -117749,8 +117787,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Dugz\Desktop\ecommerse_v2 with vue js\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Dugz\Desktop\ecommerse_v2 with vue js\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Dugz\Desktop\New folder (3)\ec_new_clone\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Dugz\Desktop\New folder (3)\ec_new_clone\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

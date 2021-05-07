@@ -10,8 +10,8 @@
 @section('body')
 
 <main id="main" class="main-site left-sidebar pt-5 pb-60">
-	<div class="container">
-		<div class="row">
+  <div class="container">
+    <div class="row">
         <div class="col-sm-3">
             <div class="dropdown sidebar sidebar-md pb-10">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -38,11 +38,11 @@
 
                      <div class="form-group">
                         <label>Full Name: </label>
-                         <input name="fullname" type="text" placeholder="ex. Juan Dela Cruz" class="form-control" value="{{old('fullname')}}">
+                         <input name="fullname" type="text" placeholder="ex. Juan Dela Cruz" class="form-control" value="{{old('fullname')}}" autocomplete="disabled">
                      </div>
                      <div class="form-group">
                         <label>Contact No.:</label>
-                         <input type="text" name="telephone" class="form-control" placeholder="ex. 09876543210" value="{{old('telephone')}}">
+                         <input type="text" name="telephone" class="form-control" placeholder="ex. 09876543210" value="{{old('telephone')}}" autocomplete="disabled">
                      </div>
                      <div class="form-group">
                         <label>Address Description (Note).:</label>
@@ -52,7 +52,7 @@
                 <div class="col-md-6">
                      <div class="form-group">
                            <label>House/Block/Lot No./Street/Purok/Subd.:</label>
-                           <input type="text" name="house_info" class="form-control" placeholder="ex. #03 Coolidge St., Village, Phase 2" value="{{old('house_info')}}">
+                           <input type="text" name="house_info" class="form-control" placeholder="ex. #03 Coolidge St., Village, Phase 2" value="{{old('house_info')}}" autocomplete="disabled">
                      </div>
                      <div class="form-group">
                         <label>Province:</label>
@@ -83,7 +83,7 @@
             </div>
         </div>
     </div>
-	</div><!--end container-->
+  </div><!--end container-->
 
 </main>
 

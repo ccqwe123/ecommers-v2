@@ -79,7 +79,7 @@
             <div class="p-1">
               <ul class="product-list grid-products equal-container">
               <li class="col-lg-3 col-md-4 col-sm-6 col-xs-6" v-for="product in products.data">
-                <div class="product product-style-2 equal-elem ">
+                <div class="product product-style-2 equal-elem shop-product">
                   <div class="product-thumnail">
                     <a :href="'/shop/' + product.slug">
                         <figure><img :src="product.image" width="800" height="800"></figure>
@@ -101,6 +101,7 @@
                            {{ product.sale_price}}
                           </p>
                         </del>
+                          <span class="percentage" v-if="percentage(product) != '-Infinity%'">{{ percentage(product) }}</span>
                       </div>
                       </a>
                     </div>
@@ -158,7 +159,7 @@
                   </li>
                   <!-- <li class="list-item default-hiden"><a class="filter-link " href="#">cat 2</a></li> -->
               <!-- end -->
-                <li class="list-item"><a data-label='Show less<i class="fa fa-angle-up" aria-hidden="true"></i>' class="btn-control control-show-more" href="#">Show more<i class="fa fa-angle-down" aria-hidden="true"></i></a></li>
+                <li class="list-item" v-show="logItemsCount > 7"><a data-label='Show less<i class="fa fa-angle-up" aria-hidden="true"></i>' class="btn-control control-show-more" href="#">Show more<i class="fa fa-angle-down" aria-hidden="true"></i></a></li>
               </ul>
             </div>
           </div>
@@ -203,6 +204,7 @@
     export default {
        data() {
             return {
+                logItems: {},
                 gridview: true,
                 gridName: 'grid',
                 prices: [],
@@ -220,6 +222,11 @@
             }
         },
       props: ['datasearch', 'csrf_token'],
+      computed: {
+      logItemsCount () {
+           return Object.keys(this.logItems).length
+       }
+      },
         mounted() {
             this.loadProducts();
             this.loadNewProducts();
@@ -235,6 +242,18 @@
             },
         },
         methods: {
+          percentage: function(product)
+          {
+            var x = parseFloat(product.sale_price.replace(/,/g, ''));
+            var y = parseFloat(product.regular_price.replace(/,/g, ''));
+            var total = y/x*100;
+            if(isFinite(parseFloat(total).toFixed(0)))
+            {
+              console.log("infinite me");
+            }
+            // console.log(total);
+             return "-"+parseFloat(total).toFixed(0)+"%";
+          },
           sortpage() {
                 return this.selected.sortperpage
             },
@@ -244,6 +263,7 @@
                     })
                     .then((response) => {
                         this.categories = response.data.data;
+                        this.logItems = response.data.data
                     })
                     .catch(function (error) {
                         console.log(error);

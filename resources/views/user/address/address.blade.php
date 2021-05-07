@@ -1,7 +1,7 @@
 @extends('layouts.frontend')
 @section('title', 'My Account')
 <style type="text/css">
-	.modal {
+  .modal {
     text-align: center;
     padding: 0!important;
   }
@@ -45,8 +45,8 @@
 @section('body')
 
 <main id="main" class="main-site left-sidebar pt-5 pb-60">
-	<div class="container">
-		<div class="row">
+  <div class="container">
+    <div class="row">
         <div class="col-sm-3">
             <div class="dropdown sidebar sidebar-md pb-10">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -88,7 +88,7 @@
                     <tbody>
                         @foreach($address as $x)
                       <tr>
-                        <td class="p5">{{ $x->fullname }} <small><p><i id="smalladdress">(Billing Address)</i></p></small></td>
+                        <td class="p5">{{ $x->fullname }} <small {{ $loop->first ==1 ? '' : 'style=visibility: hidden' }}><p><i id="smalladdress">(Default Billing Address)</i></p></small></td>
                         <td class="p5">{{ $x->telephone }}</td>
                         <td class="p5">{{ ucfirst(strtolower($x->province_name))}}<br>{{ ucfirst($x->city_name)}}<br>{{ucfirst($x->barangay_name) }}</td>
                         <td class="p5">
@@ -132,7 +132,7 @@
             </div>
         </div>
     </div>
-	</div><!--end container-->
+  </div><!--end container-->
 
 </main>
 

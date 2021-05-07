@@ -9,8 +9,8 @@
 </style>
 @section('body')
 <main id="main" class="main-site left-sidebar pt-5 pb-60">
-	<div class="container">
-		<div class="row">
+  <div class="container">
+    <div class="row">
         <div class="col-sm-3">
             <div class="dropdown sidebar sidebar-md pb-10">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -83,7 +83,7 @@
             </div>
         </div>
     </div>
-	</div><!--end container-->
+  </div><!--end container-->
 
 </main>
 
